@@ -1,7 +1,9 @@
 import express from 'express';
 import { prisma } from './prisma';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.get('/users', async (req, res) => {
