@@ -7,4 +7,8 @@ const getAll = () => {
   return req.then((res) => res.data);
 };
 
-export default { getAll }
+const create = (productData: { name: string, description: string, price: number }) => {  
+    const req = axios.post(url, productData)
+    return req.then((res) => res.data)
+}
+export default { getAll, create }
