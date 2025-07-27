@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import productService from "../services/products";
+import { toast } from "react-hot-toast";
 
 const productSchema = z.object({
   name: z
@@ -37,17 +38,18 @@ const CreateProductForm = () => {
   const onSubmit = async (data: Product) => {
     try {
       await productService.create(data);
+      toast.success(`Product "${data.name}" created successfully!`);
       reset();
       navigate("/");
     } catch (error) {
       console.error("Error creating product:", error);
+      toast.error("Failed to create product. Please try again.");
     }
   };
 
   return (
     <>
       <h1 className="text-3xl font-semibold">Create Product</h1>
-
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register("name")}
