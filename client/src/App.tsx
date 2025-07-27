@@ -5,13 +5,13 @@ import NavBar from "./components/NavBar";
 
 const App = () => {
   return (
-    <>
+    <div className="flex min-h-screen w-full flex-col items-center space-y-12">
       <NavBar />
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/create-product" element={<CreateProductForm />} />
       </Routes>
-    </>
+    </div>
   );
 };
 
