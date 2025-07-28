@@ -10,22 +10,25 @@ router.get('/', async (req, res) => {
 });
 
 // Create a product
-router.post('/', async (req, res) => {
-  const { name, description, price, sellerId } = req.body;
+router.post('/', authenticate, async (req, res) => {
+  const { name, description, price } = req.body;
+  const user = req.user; // Comes from JWT!
 
-  try {
-    const product = await prisma.product.create({
-      data: {
-        name,
-        description,
-        price: Number(price),
-        sellerId,
-      },
-    });
-    res.status(201).json(product);
-  } catch (err: any) {
-    res.status(400).json({ error: err.message });
+  if (!user || user.role !== 'SELLER') {
+    return res.status(403).json({ error: 'Only sellers can create products.' });
   }
+
+  const product = await prisma.product.create({
+    data: {
+      name,
+      description,
+      price: Number(price),
+      sellerId: user.userId
+    },
+  });
+
+  res.status(201).json(product);
 });
+
 
 export default router;
