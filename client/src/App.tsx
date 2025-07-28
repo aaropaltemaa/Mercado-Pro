@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./pages/ProductList";
 import CreateProductForm from "./pages/CreateProductForm";
+import LoginForm from "./components/LoginForm";
 import NavBar from "./components/NavBar";
 import { Toaster } from "react-hot-toast";
 
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/create-product" element={<CreateProductForm />} />
+        <Route path="/login" element={<LoginForm />} />
       </Routes>
     </div>
   );
