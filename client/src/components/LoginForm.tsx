@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginService from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/auth";
+import { toast } from "react-hot-toast";
 
 const userFormSchema = z.object({
   email: z.email(),
@@ -16,10 +18,12 @@ const inputClass =
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<UserForm>({
     resolver: zodResolver(userFormSchema),
   });
@@ -27,11 +31,13 @@ const LoginForm = () => {
   const onSubmit = async (data: UserForm) => {
     try {
       const { token, user } = await loginService.login(data);
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      login(user, token);
+      toast.success(`Logged in succesfully!`);
+      reset();
       navigate("/");
     } catch (error) {
       console.error("Error logging in", error);
+      toast.error(`Failed to log in.`);
     }
   };
 

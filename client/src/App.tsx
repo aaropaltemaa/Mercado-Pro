@@ -4,8 +4,16 @@ import CreateProductForm from "./pages/CreateProductForm";
 import LoginForm from "./components/LoginForm";
 import NavBar from "./components/NavBar";
 import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "./store/auth";
+import { useEffect } from "react";
 
 const App = () => {
+  const initialize = useAuthStore((state) => state.initialize);
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center space-y-12">
       <Toaster position="top-center" />
