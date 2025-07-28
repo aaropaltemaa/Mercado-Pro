@@ -1,10 +1,13 @@
 import express from 'express';
 import { prisma } from './prisma';
 import cors from 'cors';
+import authRoutes from "./routes/auth"
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use('/auth', authRoutes);
 
 app.get('/users', async (req, res) => {
   const users = await prisma.user.findMany();
@@ -12,9 +15,9 @@ app.get('/users', async (req, res) => {
 });
 
 app.post('/users', async (req, res) => {
-  const { name, email } = req.body;
+  const { name, email, password } = req.body;
   const user = await prisma.user.create({
-    data: { name, email },
+    data: { name, email, password },
   });
   res.json(user);
 });
