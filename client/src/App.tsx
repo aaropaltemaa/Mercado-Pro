@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     initialize();
