@@ -38,30 +38,45 @@ router.post("/", authenticate, async (req, res) => {
 
   const userId = req.user.userId;
 
-  const existingItem = await prisma.cartItem.findFirst({
-    where: {
-      userId: userId,
-      productId: productId,
-    },
-  });
-
-  if (existingItem) {
-    await prisma.cartItem.update({
-      where: { id: existingItem.id },
-      data: {
-        quantity: {
-          increment: quantity,
-        },
-      },
-    });
-  } else {
-    await prisma.cartItem.create({
-      data: {
+  try {
+    const existingItem = await prisma.cartItem.findFirst({
+      where: {
         userId: userId,
         productId: productId,
-        quantity: quantity,
       },
     });
+
+    let cartItem;
+
+    if (existingItem) {
+      cartItem = await prisma.cartItem.update({
+        where: { id: existingItem.id },
+        data: {
+          quantity: {
+            increment: quantity,
+          },
+        },
+        include: { product: true }, // Include product details in response
+      });
+    } else {
+      cartItem = await prisma.cartItem.create({
+        data: {
+          userId: userId,
+          productId: productId,
+          quantity: quantity,
+        },
+        include: { product: true }, // Include product details in response
+      });
+    }
+
+    // Send the created/updated cart item back as response
+    res.status(200).json({
+      message: "Item added to cart successfully",
+      cartItem: cartItem,
+    });
+  } catch (error) {
+    console.error("Error adding item to cart:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
