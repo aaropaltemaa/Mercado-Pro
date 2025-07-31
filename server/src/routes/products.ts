@@ -1,21 +1,21 @@
-import express from 'express';
-import { prisma } from '../prisma';
-import { authenticate } from '../middleware/auth';
+import express from "express";
+import { prisma } from "../prisma";
+import { authenticate } from "../middleware/auth";
 const router = express.Router();
 
 // Get all products
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   const products = await prisma.product.findMany();
   res.json(products);
 });
 
 // Create a product
-router.post('/', authenticate, async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   const { name, description, price } = req.body;
-  const user = req.user; // Comes from JWT!
+  const user = req.user;
 
-  if (!user || user.role !== 'SELLER') {
-    return res.status(403).json({ error: 'Only sellers can create products.' });
+  if (!user || user.role !== "SELLER") {
+    return res.status(403).json({ error: "Only sellers can create products." });
   }
 
   const product = await prisma.product.create({
@@ -23,12 +23,11 @@ router.post('/', authenticate, async (req, res) => {
       name,
       description,
       price: Number(price),
-      sellerId: user.userId
+      sellerId: user.userId,
     },
   });
 
   res.status(201).json(product);
 });
-
 
 export default router;
