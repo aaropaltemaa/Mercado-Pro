@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
+import { CiShoppingCart } from "react-icons/ci";
 
 const NavBar: React.FC = () => {
   const user = useAuthStore((state) => state.user);
@@ -13,28 +14,37 @@ const NavBar: React.FC = () => {
             Mercado Pro
           </h1>
         </Link>
-        <div className="flex flex-row gap-4">
+        <div className="flex items-center gap-6">
           <Link
-            to="/create-product"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow transition"
+            to="/cart"
+            className="hover:bg-blue-700 text-white p-2 rounded-lg shadow transition flex items-center justify-center"
           >
-            Create Product
+            <CiShoppingCart size={44} />
           </Link>
-          {user ? (
-            <button
-              onClick={logout}
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-5 rounded-lg shadow transition"
-            >
-              Log Out
-            </button>
-          ) : (
+
+          <div className="flex gap-4">
             <Link
-              to="/login"
+              to="/create-product"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow transition"
             >
-              Log In
+              Create Product
             </Link>
-          )}
+            {user ? (
+              <button
+                onClick={logout}
+                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
+              >
+                Log Out
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
+              >
+                Log In
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>

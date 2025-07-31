@@ -3,10 +3,10 @@ import ProductList from "./pages/ProductList";
 import CreateProductForm from "./pages/CreateProductForm";
 import LoginForm from "./components/LoginForm";
 import NavBar from "./components/NavBar";
-import MyOrdersPage from "./components/MyOrdersPage";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/auth";
 import { useEffect } from "react";
+import MyOrdersPage from "./components/MyOrdersPage";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);
