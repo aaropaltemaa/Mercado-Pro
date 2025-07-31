@@ -19,7 +19,12 @@ const NavBar: React.FC = () => {
             to="/cart"
             className="hover:bg-blue-700 text-white p-2 rounded-lg shadow transition flex items-center justify-center"
           >
-            <CiShoppingCart size={44} />
+            <div className="relative">
+              <CiShoppingCart size={44} />
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                3
+              </span>
+            </div>
           </Link>
 
           <div className="flex gap-4">
