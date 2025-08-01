@@ -17,7 +17,7 @@ const NavBar: React.FC = () => {
         <div className="flex items-center gap-6">
           <Link
             to="/cart"
-            className="hover:bg-blue-700 text-white p-2 rounded-lg shadow transition flex items-center justify-center"
+            className=" text-white p-2 rounded-lg hover:opacity-60 transition shadow flex items-center justify-center"
           >
             <div className="relative">
               <CiShoppingCart size={44} />
@@ -26,8 +26,7 @@ const NavBar: React.FC = () => {
               </span>
             </div>
           </Link>
-
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <Link
               to="/create-product"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg shadow transition"

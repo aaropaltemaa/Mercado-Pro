@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/auth";
 import { useEffect } from "react";
-import MyOrdersPage from "./components/MyOrdersPage";
+import CartPage from "./pages/CartPage";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);
@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/" element={<ProductList />} />
         <Route path="/create-product" element={<CreateProductForm />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/orders" element={<MyOrdersPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </div>
   );
