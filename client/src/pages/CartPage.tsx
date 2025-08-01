@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useCart } from "../store/cart";
 import cartService from "../services/cart";
 import { useAuthStore } from "../store/auth";
+import { FaTrash } from "react-icons/fa";
 
 const ItemCard = () => {
   const cartItems = useCart((state) => state.cartItems);
@@ -24,8 +25,11 @@ const ItemCard = () => {
               <div className="font-bold">${item.product.price}</div>
               <div className="font-bold">Quantity: {item.quantity}</div>
             </div>
-            <div className="text-right ml-6">
+            <div className=" flex flex-row mb-20 ml-6 gap-4">
               Total price: ${item.product.price * item.quantity}
+              <div>
+                <FaTrash size={24} />
+              </div>
             </div>
           </div>
         ))}
