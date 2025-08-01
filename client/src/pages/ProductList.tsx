@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import productService from "../services/products";
 import { Link } from "react-router-dom";
-
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-};
+import type { Product } from "../../../types";
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
