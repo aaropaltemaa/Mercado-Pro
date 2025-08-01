@@ -49,7 +49,7 @@ const CreateProductForm = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold">Create Product</h1>
+      <h1 className="text-4xl font-semibold">Create Product</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register("name")}
