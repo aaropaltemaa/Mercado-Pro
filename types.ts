@@ -4,3 +4,31 @@ export type Product = {
   description: string;
   price: number;
 };
+
+export type CartItem = {
+  id: string;
+  productId: string;
+  product: Product;
+  quantity: number;
+};
+
+export type CartState = {
+  cartItems: CartItem[];
+  setCart: (items: CartItem[]) => void;
+  removeItem: (id: string) => void;
+  clearCart: () => void;
+};
+
+export interface User {
+  id: string;
+  email: string;
+  role: "BUYER" | "SELLER" | "ADMIN";
+}
+
+export interface AuthState {
+  user: User | null;
+  token: string | null;
+  login: (user: User, token: string) => void;
+  logout: () => void;
+  initialize: () => void;
+}

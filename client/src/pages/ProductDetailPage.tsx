@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
       {<h1 className="font-bold text-3xl">{product.name}</h1>}
       <div>${product.price}</div>
       <div>{product.description}</div>
-      <button className="flex items-center gap-2 px-3 py-3 max-w-36 rounded-md bg-green-600 text-white text-sm hover:bg-green-700 transition">
+      <button className="flex items-center gap-2 px-3 py-3 max-w-36 rounded-xl bg-green-600 text-white text-sm hover:bg-green-700 transition">
         <FaCartPlus size={18} />
         Add To Cart
       </button>
