@@ -1,12 +1,30 @@
 import { useCart } from "../store/cart";
 import { FaTrash } from "react-icons/fa";
+import cartService from "../services/cart";
+import { useAuthStore } from "../store/auth";
+import toast from "react-hot-toast";
 
 const ItemCard = () => {
+  const token = useAuthStore((state) => state.token);
   const cartItems = useCart((state) => state.cartItems);
+  const removeItem = useCart((state) => state.removeItem);
   const total = cartItems.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
+
+  const handleDelete = async (id: string) => {
+    if (!token) {
+      return;
+    }
+    try {
+      if (window.confirm("Are you sure you want to delete this item?"))
+        await cartService.removeCartItem(id, token);
+      removeItem(id);
+    } catch {
+      toast.error("Failed to delete cart item");
+    }
+  };
 
   return (
     <>
@@ -24,7 +42,7 @@ const ItemCard = () => {
             </div>
             <div className=" flex flex-row gap-4 pl-8 mb-20">
               Total price: ${item.product.price * item.quantity}
-              <button onClick={() => console.log("clicked")}>
+              <button onClick={() => handleDelete(item.id)}>
                 <FaTrash size={24} />
               </button>
             </div>
