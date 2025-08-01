@@ -11,4 +11,13 @@ const getCart = (token: string) => {
   return req.then((res) => res.data);
 };
 
-export default { getCart };
+const removeCartItem = (itemId: string, token: string) => {
+  const req = axios.delete(`${url}/${itemId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return req.then((res) => res.data);
+};
+
+export default { getCart, removeCartItem };
