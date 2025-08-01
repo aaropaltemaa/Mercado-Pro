@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/auth";
 import { useEffect } from "react";
 import CartPage from "./pages/CartPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);
@@ -24,7 +25,7 @@ const App = () => {
         <Route path="/create-product" element={<CreateProductForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/cart" element={<CartPage />} />
+        <Route path="/products/:id" element={<ProductDetailPage />} />
       </Routes>
     </div>
   );

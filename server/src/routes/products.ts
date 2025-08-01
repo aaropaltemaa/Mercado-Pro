@@ -9,6 +9,15 @@ router.get("/", async (req, res) => {
   res.json(products);
 });
 
+router.get("/:id", async (req, res) => {
+  const productId = req.params.id;
+
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+  });
+  res.json(product);
+});
+
 // Create a product
 router.post("/", authenticate, async (req, res) => {
   const { name, description, price } = req.body;
