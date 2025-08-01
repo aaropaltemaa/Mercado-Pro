@@ -3,6 +3,7 @@ import { useCart } from "../store/cart";
 import cartService from "../services/cart";
 import { useAuthStore } from "../store/auth";
 import ItemCard from "../components/ItemCard";
+import PlaceOrderButton from "../components/PlaceOrderButton";
 
 const CartPage = () => {
   const token = useAuthStore((state) => state.token);
@@ -19,6 +20,7 @@ const CartPage = () => {
     <>
       <h1 className="font-semibold text-4xl">Your Cart</h1>
       <ItemCard />
+      <PlaceOrderButton />
     </>
   );
 };
