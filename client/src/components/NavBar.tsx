@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
 import { CiShoppingCart } from "react-icons/ci";
 import { useCart } from "../store/cart";
+import SearchBar from "./SearchBar";
 
 const NavBar: React.FC = () => {
   const user = useAuthStore((state) => state.user);
@@ -18,6 +19,7 @@ const NavBar: React.FC = () => {
             Mercado Pro
           </h1>
         </Link>
+        <SearchBar />
         <div className="flex items-center gap-6">
           <Link
             to="/cart"
