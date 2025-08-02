@@ -35,5 +35,7 @@ export interface AuthState {
 
 export type ProductState = {
   products: Product[];
+  search: string;
   setProducts: (items: Product[]) => void;
+  setSearch: (query: string) => void;
 };
