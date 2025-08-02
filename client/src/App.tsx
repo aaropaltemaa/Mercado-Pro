@@ -28,7 +28,7 @@ const App = () => {
   }, [token]);
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center space-y-12">
+    <div className="flex min-h-screen w-full flex-col items-center space-y-16">
       <Toaster position="top-center" />
       <NavBar />
       <Routes>
