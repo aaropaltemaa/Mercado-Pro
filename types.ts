@@ -32,3 +32,8 @@ export interface AuthState {
   logout: () => void;
   initialize: () => void;
 }
+
+export type ProductState = {
+  products: Product[];
+  setProducts: (items: Product[]) => void;
+};
