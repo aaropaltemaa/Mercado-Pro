@@ -31,9 +31,9 @@ const ProductDetailPage = () => {
   };
 
   return product ? (
-    <div className="flex flex-col border gap-5 p-6 rounded-xl justify-between">
+    <div className="flex flex-col border gap-5 p-6 rounded-xl justify-between shadow-lg">
       {<h1 className="font-bold text-3xl">{product.name}</h1>}
-      <div>${product.price}</div>
+      <div className="text-green-600 font-bold">${product.price}</div>
       <div>{product.description}</div>
       <button
         onClick={() => addToCart(product.id)}
