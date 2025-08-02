@@ -3,6 +3,7 @@ import productService from "../services/products";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { useProductStore } from "../store/products";
+import highlightText from "../components/HighLightText";
 
 export default function ProductList() {
   const products = useProductStore((state) => state.products);
@@ -33,7 +34,9 @@ export default function ProductList() {
               src="https://placehold.co/300x200"
               alt="Product image"
             />
-            <h2 className="font-semibold text-2xl">{product.name}</h2>
+            <h2 className="font-semibold text-2xl">
+              {highlightText(product.name, search)}
+            </h2>
             <p className="font-bold text-green-600 text-xl">${product.price}</p>
             <p className="text-sm text-gray-500 truncate">
               {product.description}

@@ -2,7 +2,6 @@ import { FaSearch } from "react-icons/fa";
 import { useProductStore } from "../store/products";
 
 const SearchBar = () => {
-  const products = useProductStore((state) => state.products);
   const search = useProductStore((state) => state.search);
   const setSearch = useProductStore((state) => state.setSearch);
 
