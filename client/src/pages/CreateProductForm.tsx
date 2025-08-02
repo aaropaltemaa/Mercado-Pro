@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import productService from "../services/products";
 import { toast } from "react-hot-toast";
+import { useAuthStore } from "../store/auth";
 
 const productSchema = z.object({
   name: z
@@ -24,6 +25,7 @@ const inputClass =
 
 const CreateProductForm = () => {
   const navigate = useNavigate();
+  const token = useAuthStore((state) => state.token);
 
   const {
     register,
@@ -37,7 +39,7 @@ const CreateProductForm = () => {
 
   const onSubmit = async (data: Product) => {
     try {
-      await productService.create(data);
+      await productService.create(data, token ?? "");
       toast.success(`Product "${data.name}" created successfully!`);
       reset();
       navigate("/");

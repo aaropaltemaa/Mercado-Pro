@@ -12,12 +12,19 @@ const getOne = (id: string) => {
   return req.then((res) => res.data);
 };
 
-const create = (productData: {
-  name: string;
-  description: string;
-  price: number;
-}) => {
-  const req = axios.post(url, productData);
+const create = (
+  productData: {
+    name: string;
+    description: string;
+    price: number;
+  },
+  token: string
+) => {
+  const req = axios.post(url, productData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return req.then((res) => res.data);
 };
 export default { getAll, create, getOne };

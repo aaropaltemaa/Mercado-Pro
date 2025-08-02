@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useProductStore } from "../store/products";
 
 const SearchBar = () => {
   const [searchState, setSearchState] = useState("");
+
   return (
     <div className="relative w-full max-w-2xl">
       <input
