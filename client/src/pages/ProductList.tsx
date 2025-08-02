@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import productService from "../services/products";
 import { Link } from "react-router-dom";
-import type { Product } from "../../../types";
 import { FaEye } from "react-icons/fa";
+import { useProductStore } from "../store/products";
 
 export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useProductStore((state) => state.products);
+  const setProducts = useProductStore((state) => state.setProducts);
 
   useEffect(() => {
     productService.getAll().then((products) => {
       setProducts(products);
     });
-  }, []);
+  }, [setProducts]);
 
   return (
     <div className="p-4">
