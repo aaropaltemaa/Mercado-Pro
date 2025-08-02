@@ -7,6 +7,7 @@ import { useProductStore } from "../store/products";
 export default function ProductList() {
   const products = useProductStore((state) => state.products);
   const setProducts = useProductStore((state) => state.setProducts);
+  const search = useProductStore((state) => state.search);
 
   useEffect(() => {
     productService.getAll().then((products) => {
@@ -14,11 +15,15 @@ export default function ProductList() {
     });
   }, [setProducts]);
 
+  const filteredProducts = products.filter((p) =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="p-4">
       <h1 className="text-4xl font-extrabold mb-6">Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="flex flex-col border p-5 min-h-[350px] rounded-xl shadow-md w-72 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl gap-2"
