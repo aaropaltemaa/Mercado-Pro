@@ -3,7 +3,7 @@ import productService from "../services/products";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { useProductStore } from "../store/products";
-import highlightText from "../components/HighLightText";
+import highlightText from "./HighLightText";
 
 export default function ProductList() {
   const products = useProductStore((state) => state.products);
