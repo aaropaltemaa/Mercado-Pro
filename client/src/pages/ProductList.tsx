@@ -20,6 +20,10 @@ export default function ProductList() {
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  if (filteredProducts.length === 0) {
+    return <div className="text-lg">No products found.</div>;
+  }
+
   return (
     <div className="p-4">
       <h1 className="text-4xl font-extrabold mb-6">Products</h1>
