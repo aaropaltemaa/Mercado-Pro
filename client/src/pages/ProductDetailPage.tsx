@@ -14,12 +14,19 @@ const ProductDetailPage = () => {
     }
   }, [productId]);
 
+  const addToCart = () => {
+    console.log("click");
+  };
+
   return product ? (
     <div className="flex flex-col border gap-5 p-6 rounded-xl justify-between">
       {<h1 className="font-bold text-3xl">{product.name}</h1>}
       <div>${product.price}</div>
       <div>{product.description}</div>
-      <button className="flex items-center gap-2 px-3 py-3 max-w-36 rounded-xl bg-green-600 text-white text-sm hover:bg-green-700 transition">
+      <button
+        onClick={addToCart}
+        className="flex items-center gap-2 px-3 py-3 max-w-36 rounded-xl bg-green-600 text-white text-sm hover:bg-green-700 transition"
+      >
         <FaCartPlus size={18} />
         Add To Cart
       </button>
