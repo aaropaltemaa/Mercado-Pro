@@ -18,9 +18,10 @@ const ItemCard = () => {
       return;
     }
     try {
-      if (window.confirm("Are you sure you want to delete this item?"))
+      if (window.confirm("Are you sure you want to delete this item?")) {
         await cartService.removeCartItem(id, token);
-      removeItem(id);
+        removeItem(id);
+      }
     } catch {
       toast.error("Failed to delete cart item");
     }
@@ -40,7 +41,7 @@ const ItemCard = () => {
               <div className="font-bold">${item.product.price}</div>
               <div className="font-bold">Quantity: {item.quantity}</div>
             </div>
-            <div className=" flex flex-row gap-4 pl-8 mb-20">
+            <div className="flex flex-row gap-4 pl-8 mb-20">
               Total price: ${item.product.price * item.quantity}
               <button onClick={() => handleDelete(item.id)}>
                 <FaTrash size={24} />

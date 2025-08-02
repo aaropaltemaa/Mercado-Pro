@@ -6,6 +6,7 @@ import type { Product } from "../../../types";
 import { FaCartPlus } from "react-icons/fa";
 import { useAuthStore } from "../store/auth";
 import toast from "react-hot-toast";
+import { useCart } from "../store/cart";
 
 const ProductDetailPage = () => {
   const productId = useParams().id;
@@ -22,6 +23,8 @@ const ProductDetailPage = () => {
     try {
       await cartService.addCartItem(id, 1, token ?? "");
       toast.success("Succesfully added item to cart!");
+      const updatedCart = await cartService.getCart(token ?? "");
+      useCart.getState().setCart(updatedCart);
     } catch {
       toast.error("Failed to add item to cart");
     }

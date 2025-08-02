@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
 import { CiShoppingCart } from "react-icons/ci";
+import { useCart } from "../store/cart";
 
 const NavBar: React.FC = () => {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const cartCount = useCart((state) =>
+    state.cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  );
 
   return (
     <nav className="h-20 w-full bg-gray-800 text-white shadow-lg">
@@ -21,9 +25,11 @@ const NavBar: React.FC = () => {
           >
             <div className="relative">
               <CiShoppingCart size={44} />
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                3
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                  {cartCount}
+                </span>
+              )}
             </div>
           </Link>
           <div className="flex gap-6">
