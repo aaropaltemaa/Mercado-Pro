@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { useProductStore } from "../store/products";
 import highlightText from "./HighLightText";
+import { motion } from "framer-motion";
 
 export default function ProductList() {
   const products = useProductStore((state) => state.products);
@@ -25,13 +26,15 @@ export default function ProductList() {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-4xl font-extrabold mb-6">Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {filteredProducts.map((product) => (
-          <div
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
+        {filteredProducts.map((product, index) => (
+          <motion.div
             key={product.id}
             className="flex flex-col border p-5 min-h-[350px] rounded-xl shadow-md w-72 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
           >
             <img
               className="h-40 object-cover w-full rounded-t-xl"
@@ -52,7 +55,7 @@ export default function ProductList() {
               <FaEye />
               <span>View</span>
             </Link>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

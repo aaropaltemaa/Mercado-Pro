@@ -1,16 +1,32 @@
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white py-24 px-6 rounded-xl shadow-md text-center space-y-6">
-      <h1 className="text-5xl font-extrabold tracking-tight">
-        Elevate Your Tech Experience
-      </h1>
-      <p className="text-lg max-w-2xl mx-auto">
-        Explore a curated selection of premium technology products at
-        exceptional prices.
-      </p>
-      <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-100 transition">
-        Shop Now
-      </button>
+    <section className="w-full bg-white py-16 px-4 sm:px-8">
+      <div className="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
+        {/* Left: Text Content */}
+        <div className="text-center lg:text-left space-y-6 flex-1">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
+            Shop the Best in Tech
+          </h1>
+          <p className="text-lg text-gray-600 max-w-xl mx-auto lg:mx-0">
+            Find unbeatable deals on high-performance laptops, accessories, and
+            cutting-edge devices — all in one place.
+          </p>
+          <div>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full transition">
+              Shop Now
+            </button>
+          </div>
+        </div>
+
+        {/* Right: Image */}
+        <div className="flex-1">
+          <img
+            src="https://placehold.co/500x300?text=Tech+Gear"
+            alt="Tech gear preview"
+            className="w-full rounded-xl shadow-xl"
+          />
+        </div>
+      </div>
     </section>
   );
 };
