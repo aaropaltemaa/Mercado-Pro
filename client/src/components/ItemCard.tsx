@@ -3,8 +3,10 @@ import { FaTrash } from "react-icons/fa";
 import cartService from "../services/cart";
 import { useAuthStore } from "../store/auth";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const ItemCard = () => {
+  const [updatingItemId, setUpdatingItemId] = useState<string | null>(null);
   const token = useAuthStore((state) => state.token);
   const cartItems = useCart((state) => state.cartItems);
   const removeItem = useCart((state) => state.removeItem);
@@ -32,11 +34,14 @@ const ItemCard = () => {
       return;
     }
     try {
+      setUpdatingItemId(id); // start loading
       await cartService.updateCartItem(id, newQuantity, token);
       const updatedCart = await cartService.getCart(token);
       useCart.getState().setCart(updatedCart);
     } catch {
       toast.error("Failed to update quantity");
+    } finally {
+      setUpdatingItemId(null);
     }
   };
 
@@ -55,17 +60,28 @@ const ItemCard = () => {
               <div className="flex flex-row items-center justify-between w-32 font-bold border-4 rounded-3xl px-3 py-1 mt-4 border-yellow-300">
                 <button
                   onClick={() => handleUpdate(item.id, item.quantity - 1)}
-                  disabled={item.quantity === 1}
-                  className="text-xl"
+                  disabled={item.quantity === 1 || updatingItemId === item.id}
+                  className={`ml-2 text-xl ${
+                    updatingItemId === item.id
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
                 >
-                  -
+                  {updatingItemId === item.id ? "..." : "-"}
                 </button>
+
                 {item.quantity}
+
                 <button
                   onClick={() => handleUpdate(item.id, item.quantity + 1)}
-                  className="ml-2 text-xl"
+                  disabled={updatingItemId === item.id}
+                  className={`ml-2 text-xl ${
+                    updatingItemId === item.id
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
                 >
-                  +
+                  {updatingItemId === item.id ? "..." : "+"}
                 </button>
               </div>
             </div>
