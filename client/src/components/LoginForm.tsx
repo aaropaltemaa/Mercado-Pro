@@ -2,7 +2,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginService from "../services/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
 import { toast } from "react-hot-toast";
 
@@ -22,7 +22,7 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<UserForm>({
     resolver: zodResolver(userFormSchema),
@@ -43,7 +43,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold">Sign in</h1>
+      <h1 className="text-4xl font-semibold">Sign in</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register("email")}
@@ -70,6 +70,15 @@ const LoginForm = () => {
         >
           Log in
         </button>
+        <p>
+          Don't have an account?{" "}
+          <Link
+            className="text-blue-500 hover:opacity-80 transition"
+            to="/register"
+          >
+            Sign Up
+          </Link>
+        </p>
       </form>
     </>
   );
