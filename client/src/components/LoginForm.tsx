@@ -1,14 +1,14 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import loginService from "../services/auth";
+import authService from "../services/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
 import { toast } from "react-hot-toast";
 
 const userFormSchema = z.object({
-  email: z.email(),
-  password: z.string().min(8),
+  email: z.email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
 type UserForm = z.infer<typeof userFormSchema>;
@@ -30,7 +30,7 @@ const LoginForm = () => {
 
   const onSubmit = async (data: UserForm) => {
     try {
-      const { token, user } = await loginService.login(data);
+      const { token, user } = await authService.login(data);
       login(user, token);
       toast.success(`Logged in succesfully!`);
       reset();
