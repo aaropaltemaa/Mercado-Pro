@@ -13,7 +13,6 @@ const HomePage = () => {
         </h2>
         <ProductList />
       </section>
-
       <Footer />
     </div>
   );

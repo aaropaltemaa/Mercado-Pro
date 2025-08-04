@@ -27,7 +27,7 @@ const NavBar: React.FC = () => {
           >
             <div className="relative">
               <CiShoppingCart size={44} />
-              {cartCount > 0 && (
+              {cartCount > 0 && user && (
                 <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                   {cartCount}
                 </span>
@@ -49,12 +49,20 @@ const NavBar: React.FC = () => {
                 Log Out
               </button>
             ) : (
-              <Link
-                to="/login"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
-              >
-                Log In
-              </Link>
+              <>
+                <Link
+                  to="/login"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
+                >
+                  Log In
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
+                >
+                  Register
+                </Link>
+              </>
             )}
           </div>
         </div>
