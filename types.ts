@@ -39,3 +39,17 @@ export type ProductState = {
   setProducts: (items: Product[]) => void;
   setSearch: (query: string) => void;
 };
+
+export type ShippingData = {
+  fullName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+};
+
+export interface CheckoutState {
+  shippingInfo: ShippingData | null;
+  setShippingInfo: (data: ShippingData) => void;
+}
