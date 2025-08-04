@@ -52,7 +52,6 @@ const RegisterForm = () => {
         {errors.name && (
           <div className="text-red-500 text-sm">{errors.name.message}</div>
         )}
-
         <input
           {...register("email")}
           type="text"
