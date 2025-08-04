@@ -50,6 +50,7 @@ export type ShippingData = {
 };
 
 export interface CheckoutState {
-  shippingInfo: ShippingData | null;
-  setShippingInfo: (data: ShippingData) => void;
+  shippingData: ShippingData | null;
+  setShippingData: (data: ShippingData) => void;
+  clearShippingData: () => void;
 }

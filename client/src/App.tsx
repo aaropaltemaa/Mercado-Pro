@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import CreateProductForm from "./pages/CreateProductForm";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/forms/LoginForm";
 import NavBar from "./components/NavBar";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/auth";
@@ -11,7 +11,7 @@ import cartService from "./services/cart";
 import { useCart } from "./store/cart";
 import HomePage from "./pages/HomePage";
 import CheckoutPage from "./pages/CheckoutPage";
-import RegisterForm from "./components/RegisterForm";
+import RegisterForm from "./components/forms/RegisterForm";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);

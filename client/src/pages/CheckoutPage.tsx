@@ -2,6 +2,7 @@ import { useCart } from "../store/cart";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PlaceOrderButton from "../components/PlaceOrderButton";
+import ShippingForm from "../components/forms/ShippingForm";
 
 const CheckoutPage = () => {
   const cartItems = useCart((state) => state.cartItems);
@@ -19,9 +20,9 @@ const CheckoutPage = () => {
   }, [cartItems, navigate]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 space-y-10">
+    <div className="max-w-4xl mx-auto px-4 space-y-10">
       <h1 className="text-3xl font-bold text-center">Checkout</h1>
-
+      <ShippingForm />
       <div className="space-y-6">
         {cartItems.map((item) => (
           <div
@@ -32,7 +33,7 @@ const CheckoutPage = () => {
               <h2 className="text-lg font-semibold">{item.product.name}</h2>
               <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
             </div>
-            <div className="text-right font-bold">
+            <div className="text-right font-bold ml-6">
               ${(item.product.price * item.quantity).toFixed(2)}
             </div>
           </div>
