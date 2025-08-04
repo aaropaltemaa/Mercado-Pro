@@ -33,4 +33,17 @@ const removeCartItem = (itemId: string, token: string) => {
   return req.then((res) => res.data);
 };
 
-export default { getCart, addCartItem, removeCartItem };
+const updateCartItem = (itemId: string, quantity: number, token: string) => {
+  const req = axios.put(
+    `${url}/${itemId}`,
+    { quantity },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return req.then((res) => res.data);
+};
+
+export default { getCart, addCartItem, removeCartItem, updateCartItem };

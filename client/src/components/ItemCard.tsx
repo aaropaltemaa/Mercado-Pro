@@ -39,7 +39,7 @@ const ItemCard = () => {
               <div className="font-bold text-lg">{item.product.name}</div>
               <div className="text-sm max-w-56">{item.product.description}</div>
               <div className="font-bold">${item.product.price}</div>
-              <div className="flex flex-row items-center justify-between w-32 font-bold border-4 rounded-2xl px-2 py-1 mt-4 border-yellow-300">
+              <div className="flex flex-row items-center justify-between w-32 font-bold border-4 rounded-3xl px-3 py-1 mt-4 border-yellow-300">
                 <button className="text-xl">-</button>
                 {item.quantity}
                 <button className="ml-2 text-xl">+</button>
