@@ -27,7 +27,7 @@ const PlaceOrderButton = () => {
       <button
         data-tooltip-id="order-tip"
         className="font-bold border rounded-xl p-3 text-white transition 
-            hover:bg-green-500 bg-blue-600 
+            hover:bg-green-600 bg-blue-600 
             disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!token || cartItems.length === 0}
         onClick={() => {

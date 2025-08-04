@@ -10,6 +10,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import cartService from "./services/cart";
 import { useCart } from "./store/cart";
 import HomePage from "./pages/HomePage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/products/:id" element={<ProductDetailPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </div>
   );
