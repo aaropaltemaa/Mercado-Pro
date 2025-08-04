@@ -105,4 +105,34 @@ router.delete("/:itemId", authenticate, async (req, res) => {
   }
 });
 
+router.put("/:itemId", authenticate, async (req, res) => {
+  const itemId = req.params.itemId;
+  const { quantity } = req.body;
+
+  if (!req.user || !req.user.userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const userId = req.user.userId;
+
+  const existingCartItem = await prisma.cartItem.findFirst({
+    where: { id: itemId, userId: userId },
+  });
+
+  if (!existingCartItem) {
+    return res.status(404).json({ error: "Cart item not found" });
+  }
+
+  if (quantity < 1) {
+    return res.status(400).json({ error: "Quantity must be at least 1" });
+  }
+
+  const updatedItem = await prisma.cartItem.update({
+    where: { id: itemId },
+    data: { quantity },
+  });
+
+  return res.json(updatedItem);
+});
+
 export default router;
