@@ -27,6 +27,19 @@ const ItemCard = () => {
     }
   };
 
+  const handleUpdate = async (id: string, newQuantity: number) => {
+    if (!token) {
+      return;
+    }
+    try {
+      await cartService.updateCartItem(id, newQuantity, token);
+      const updatedCart = await cartService.getCart(token);
+      useCart.getState().setCart(updatedCart);
+    } catch {
+      toast.error("Failed to update quantity");
+    }
+  };
+
   return (
     <>
       <div>
@@ -40,9 +53,20 @@ const ItemCard = () => {
               <div className="text-sm max-w-56">{item.product.description}</div>
               <div className="font-bold">${item.product.price}</div>
               <div className="flex flex-row items-center justify-between w-32 font-bold border-4 rounded-3xl px-3 py-1 mt-4 border-yellow-300">
-                <button className="text-xl">-</button>
+                <button
+                  onClick={() => handleUpdate(item.id, item.quantity - 1)}
+                  disabled={item.quantity === 1}
+                  className="text-xl"
+                >
+                  -
+                </button>
                 {item.quantity}
-                <button className="ml-2 text-xl">+</button>
+                <button
+                  onClick={() => handleUpdate(item.id, item.quantity + 1)}
+                  className="ml-2 text-xl"
+                >
+                  +
+                </button>
               </div>
             </div>
             <div className="flex flex-row gap-4 pl-8 mb-20">
