@@ -16,7 +16,7 @@ const shippingSchema = z.object({
 
 const ShippingForm = () => {
   const setShippingData = useShipping((state) => state.setShippingData);
-  const hasShippingInfo = useShipping((state) => state.setHasShippingData);
+  const setHasShippingData = useShipping((state) => state.setHasShippingData);
   const {
     register,
     handleSubmit,
@@ -28,7 +28,7 @@ const ShippingForm = () => {
 
   const onSubmit = async (data: ShippingData) => {
     setShippingData(data); // Save shipping info
-    hasShippingInfo(true);
+    setHasShippingData(true);
     reset();
     toast.success("Shipping information saved successfully!");
   };

@@ -10,17 +10,17 @@ const PlaceOrderButton = () => {
   const token = useAuthStore((state) => state.token);
   const clearCart = useCart((state) => state.clearCart);
   const cartItems = useCart((state) => state.cartItems);
-  const shippingData = useShipping((state) => state.shippingData);
+  const hasShippingData = useShipping((state) => state.hasShippingData);
   const navigate = useNavigate();
 
-  const placeOrder = async (token: string) => {
+  const isDisabled = !token || cartItems.length === 0 || !hasShippingData;
+
+  const placeOrder = async () => {
     try {
-      if (shippingData) {
-        await orderService.create(token);
-        clearCart();
-        toast.success("Succesfully created order!");
-        navigate("/");
-      }
+      await orderService.create(token!);
+      clearCart();
+      toast.success("Successfully created order!");
+      navigate("/");
     } catch {
       toast.error("Failed to create order");
     }
@@ -30,22 +30,22 @@ const PlaceOrderButton = () => {
     <div>
       <button
         data-tooltip-id="order-tip"
+        data-tooltip-content={
+          !token
+            ? "You must be logged in."
+            : !hasShippingData
+              ? "Please enter shipping info."
+              : "Add items to your cart to place an order."
+        }
         className="font-bold border rounded-xl p-3 text-white transition 
-            hover:bg-green-600 bg-blue-600 
-            disabled:opacity-50 disabled:cursor-not-allowed"
-        disabled={!token || cartItems.length === 0}
-        onClick={() => {
-          if (token && cartItems.length !== 0) {
-            placeOrder(token);
-          }
-        }}
+          hover:bg-green-600 bg-blue-600 
+          disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={isDisabled}
+        onClick={placeOrder}
       >
-        Place order
+        Place Order
       </button>
-      <Tooltip
-        id="order-tip"
-        content="Add items to your cart to place an order."
-      />
+      <Tooltip id="order-tip" />
     </div>
   );
 };
