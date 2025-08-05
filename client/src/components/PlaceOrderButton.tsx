@@ -24,7 +24,7 @@ const PlaceOrderButton = () => {
       await orderService.create(token!, shippingData);
       clearCart();
       toast.success("Successfully created order!");
-      navigate("/");
+      navigate("/order-confirmation");
     } catch {
       toast.error("Failed to create order");
     }

@@ -1,6 +1,5 @@
 import { useCart } from "../store/cart";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import PlaceOrderButton from "../components/PlaceOrderButton";
 import ShippingForm from "../components/forms/ShippingForm";
 
@@ -10,14 +9,6 @@ const CheckoutPage = () => {
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (cartItems.length === 0) {
-      navigate("/cart"); // redirect if cart is empty
-    }
-  }, [cartItems, navigate]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 space-y-10">
