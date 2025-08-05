@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useShipping } from "../../store/checkout";
 import type { ShippingData } from "../../../../types";
@@ -17,6 +16,7 @@ const shippingSchema = z.object({
 
 const ShippingForm = () => {
   const setShippingData = useShipping((state) => state.setShippingData);
+  const hasShippingInfo = useShipping((state) => state.setHasShippingData);
   const {
     register,
     handleSubmit,
@@ -27,7 +27,9 @@ const ShippingForm = () => {
   });
 
   const onSubmit = async (data: ShippingData) => {
-    setShippingData(data);
+    setShippingData(data); // Save shipping info
+    hasShippingInfo(true);
+    reset();
     toast.success("Shipping information saved successfully!");
   };
 
@@ -94,7 +96,7 @@ const ShippingForm = () => {
           type="submit"
           className="bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 transition disabled:opacity-50"
         >
-          Continue to Payment
+          Save & Continue
         </button>
       </form>
     </div>

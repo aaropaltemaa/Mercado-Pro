@@ -53,4 +53,6 @@ export interface CheckoutState {
   shippingData: ShippingData | null;
   setShippingData: (data: ShippingData) => void;
   clearShippingData: () => void;
+  hasShippingData: boolean;
+  setHasShippingData: (value: boolean) => void;
 }
