@@ -57,3 +57,34 @@ export interface CheckoutState {
   hasShippingData: boolean;
   setHasShippingData: (value: boolean) => void;
 }
+
+export interface Order {
+  id: string;
+  userId: string;
+  total: number;
+  status: "PENDING" | "COMPLETED" | "CANCELLED";
+  createdAt: string;
+  fullName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+  items: OrderItem[];
+}
+
+export interface OrderItem {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  price: number;
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    createdAt: string;
+    sellerId: string;
+  };
+}
