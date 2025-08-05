@@ -43,6 +43,7 @@ const App = () => {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+        <Route path="/order-history" element={<OrderConfirmationPage />} />
       </Routes>
     </div>
   );
