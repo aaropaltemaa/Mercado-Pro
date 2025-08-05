@@ -3,6 +3,7 @@ import { useAuthStore } from "../store/auth";
 import { CiShoppingCart } from "react-icons/ci";
 import { useCart } from "../store/cart";
 import SearchBar from "./SearchBar";
+import DropdownMenu from "./DropDownMenu";
 
 const NavBar: React.FC = () => {
   const user = useAuthStore((state) => state.user);
@@ -14,11 +15,14 @@ const NavBar: React.FC = () => {
   return (
     <nav className="h-20 w-full bg-gray-800 text-white shadow-lg">
       <div className="flex items-center justify-between h-full px-8">
-        <Link to="/" className="hover:opacity-80 transition">
-          <h1 className="text-2xl font-extrabold tracking-tight">
-            Mercado Pro
-          </h1>
-        </Link>
+        <div className="flex flex-row gap-8">
+          <Link to="/" className="hover:opacity-80 transition">
+            <h1 className="text-2xl font-extrabold tracking-tight">
+              Mercado Pro
+            </h1>
+          </Link>
+          <DropdownMenu />
+        </div>
         <SearchBar />
         <div className="flex items-center gap-6">
           <Link
