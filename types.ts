@@ -22,6 +22,7 @@ export type CartState = {
 export interface User {
   id: string;
   email: string;
+  name: string;
   role: "BUYER" | "SELLER" | "ADMIN";
 }
 
