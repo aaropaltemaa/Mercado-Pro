@@ -11,13 +11,17 @@ const PlaceOrderButton = () => {
   const clearCart = useCart((state) => state.clearCart);
   const cartItems = useCart((state) => state.cartItems);
   const hasShippingData = useShipping((state) => state.hasShippingData);
+  const shippingData = useShipping((state) => state.shippingData);
   const navigate = useNavigate();
 
   const isDisabled = !token || cartItems.length === 0 || !hasShippingData;
 
   const placeOrder = async () => {
+    if (!shippingData) {
+      return;
+    }
     try {
-      await orderService.create(token!);
+      await orderService.create(token!, shippingData);
       clearCart();
       toast.success("Successfully created order!");
       navigate("/");
