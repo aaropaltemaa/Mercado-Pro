@@ -76,4 +76,11 @@ model Order {
   createdAt DateTime @default(now())
   user  User @relation(fields: [userId], references: [id])
   items OrderItem[]
+
+  fullName    String
+  address     String
+  city        String
+  postalCode  String
+  country     String
+  phone       String
 }

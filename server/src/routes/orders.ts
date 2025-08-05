@@ -27,6 +27,8 @@ router.post("/", authenticate, async (req, res) => {
   }
   const userId = req.user.userId;
 
+  const { shippingData } = req.body;
+
   const cartItems = await prisma.cartItem.findMany({
     where: { userId },
     include: { product: true },
@@ -53,6 +55,12 @@ router.post("/", authenticate, async (req, res) => {
     data: {
       userId,
       total,
+      fullName: shippingData.fullName,
+      address: shippingData.address,
+      city: shippingData.city,
+      postalCode: shippingData.postalCode,
+      country: shippingData.country,
+      phone: shippingData.phone,
     },
   });
 
