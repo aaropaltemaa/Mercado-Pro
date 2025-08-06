@@ -34,15 +34,27 @@ const DropDownMenu = () => {
             anchor="bottom end"
             className="z-50 bg-white border rounded-md shadow-md p-1"
           >
-            <MenuItem>
-              <Link
-                className="flex items-center gap-2 px-3 py-2 hover:bg-blue-100 rounded-lg"
-                to="/order-history"
-              >
-                <FaHistory />
-                My Orders
-              </Link>
-            </MenuItem>
+            {user?.role === "BUYER" ? (
+              <MenuItem>
+                <Link
+                  className="flex items-center gap-2 px-3 py-2 hover:bg-blue-100 rounded-lg"
+                  to="/order-history"
+                >
+                  <FaHistory />
+                  My Orders
+                </Link>
+              </MenuItem>
+            ) : (
+              <MenuItem>
+                <Link
+                  className="flex items-center gap-2 px-3 py-2 hover:bg-blue-100 rounded-lg"
+                  to="/my-products"
+                >
+                  <FaHistory />
+                  My Products
+                </Link>
+              </MenuItem>
+            )}
             {user && (
               <MenuItem>
                 <button
