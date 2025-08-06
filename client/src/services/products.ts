@@ -12,6 +12,13 @@ const getOne = (id: string) => {
   return req.then((res) => res.data);
 };
 
+const getSellerProducts = (token: string) => {
+  const req = axios.get(`${url}/my`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return req.then((res) => res.data);
+};
+
 const create = (
   productData: {
     name: string;
@@ -27,4 +34,4 @@ const create = (
   });
   return req.then((res) => res.data);
 };
-export default { getAll, create, getOne };
+export default { getAll, create, getOne, getSellerProducts };
