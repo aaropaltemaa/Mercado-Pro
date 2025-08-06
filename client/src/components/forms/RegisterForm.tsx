@@ -9,6 +9,7 @@ const userFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
+  role: z.enum(["BUYER", "SELLER"]),
 });
 
 type UserForm = z.infer<typeof userFormSchema>;
@@ -70,6 +71,34 @@ const RegisterForm = () => {
         {errors.password && (
           <div className="text-red-500 text-sm">{errors.password.message}</div>
         )}
+        <div>
+          <label className="block font-medium mb-2">Select your role:</label>
+          <div className="flex gap-6">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="BUYER"
+                {...register("role")}
+                className="accent-blue-600"
+                defaultChecked
+              />
+              <span>Buyer</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="SELLER"
+                {...register("role")}
+                className="accent-blue-600"
+              />
+              <span>Seller</span>
+            </label>
+          </div>
+          {errors.role && (
+            <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>
+          )}
+        </div>
+
         <button
           type="submit"
           className="bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700 transition disabled:opacity-50"
