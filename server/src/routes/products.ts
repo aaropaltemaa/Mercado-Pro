@@ -8,24 +8,11 @@ console.log("Product routes loaded");
 // Get all products
 router.get("/", async (req, res) => {
   const products = await prisma.product.findMany();
-  console.log(products);
 
   res.json(products);
 });
 
-router.get("/:id", async (req, res) => {
-  const productId = req.params.id;
-
-  const product = await prisma.product.findUnique({
-    where: { id: productId },
-  });
-  res.json(product);
-});
-
-// GET /products/my
 router.get("/my", authenticate, async (req, res) => {
-  console.log("🔍 /products/my route was hit");
-
   const user = req.user;
 
   if (!user || user.role !== "SELLER") {
@@ -59,6 +46,15 @@ router.post("/", authenticate, async (req, res) => {
   });
 
   res.status(201).json(product);
+});
+
+router.get("/:id", async (req, res) => {
+  const productId = req.params.id;
+
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+  });
+  res.json(product);
 });
 
 export default router;
