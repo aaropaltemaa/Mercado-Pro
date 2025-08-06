@@ -6,11 +6,15 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   // 1. Validate input
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !role) {
     return res.status(400).json({ error: "All fields are required." });
+  }
+
+  if (!["BUYER", "SELLER"].includes(role)) {
+    return res.status(400).json({ error: "Invalid user role." });
   }
 
   // 2. Check if user already exists
@@ -28,7 +32,7 @@ router.post("/register", async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: "SELLER", // or 'BUYER', depending on logic
+      role,
     },
   });
 
@@ -36,8 +40,8 @@ router.post("/register", async (req, res) => {
   res.status(201).json({
     message: "User registered successfully.",
     user: {
-      name: user.name,
       id: user.id,
+      name: user.name,
       email: user.email,
       role: user.role,
     },
