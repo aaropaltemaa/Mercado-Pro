@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
 
 // Create a product
 router.post("/", authenticate, async (req, res) => {
-  const { name, description, price } = req.body;
+  const { name, description, price, image } = req.body;
   const user = req.user;
 
   if (!user || user.role !== "SELLER") {
@@ -32,6 +32,7 @@ router.post("/", authenticate, async (req, res) => {
       name,
       description,
       price: Number(price),
+      image,
       sellerId: user.userId,
     },
   });
