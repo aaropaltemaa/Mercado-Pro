@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import productService from "../services/products";
 import cartService from "../services/cart";
 import type { Product } from "../../../types";
@@ -7,28 +7,24 @@ import { FaCartPlus } from "react-icons/fa";
 import { useAuthStore } from "../store/auth";
 import toast from "react-hot-toast";
 import { useCart } from "../store/cart";
-import { Link } from "react-router-dom";
 
 const ProductDetailPage = () => {
   const productId = useParams().id;
   const token = useAuthStore((state) => state.token);
   const [product, setProduct] = useState<Product | null>(null);
-  const mockImages = [
-    "https://placehold.co/500x400?text=Main+Image",
-    "https://placehold.co/500x400?text=Alt+1",
-    "https://placehold.co/500x400?text=Alt+2",
-    "https://placehold.co/500x400?text=Alt+3",
-  ];
-
-  const [selectedImage, setSelectedImage] = useState(mockImages[0]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     if (productId) {
-      productService.getOne(productId).then((data) => setProduct(data));
+      productService.getOne(productId).then((data) => {
+        setProduct(data);
+        setSelectedImage(data.image); // Set actual product image
+      });
+
       productService.getAll().then((products) => {
         const related = products.filter((p: Product) => p.id !== productId);
-        setRelatedProducts(related.slice(0, 4)); // Get 4 related products
+        setRelatedProducts(related.slice(0, 4));
       });
     }
   }, [productId]);
@@ -36,7 +32,7 @@ const ProductDetailPage = () => {
   const addToCart = async (id: string) => {
     try {
       await cartService.addCartItem(id, 1, token ?? "");
-      toast.success("Succesfully added item to cart!");
+      toast.success("Successfully added item to cart!");
       const updatedCart = await cartService.getCart(token ?? "");
       useCart.getState().setCart(updatedCart);
     } catch {
@@ -44,7 +40,19 @@ const ProductDetailPage = () => {
     }
   };
 
-  return product ? (
+  if (!product || !selectedImage) {
+    return <div className="text-center py-20 text-gray-500">Loading...</div>;
+  }
+
+  // Build image array with actual image first, and fallback thumbnails
+  const imageGallery = [
+    product.image,
+    "https://placehold.co/500x400?text=Alt+1",
+    "https://placehold.co/500x400?text=Alt+2",
+    "https://placehold.co/500x400?text=Alt+3",
+  ];
+
+  return (
     <>
       <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10 items-start">
         {/* LEFT COLUMN - IMAGES */}
@@ -56,7 +64,7 @@ const ProductDetailPage = () => {
           />
 
           <div className="flex gap-3">
-            {mockImages.map((img, index) => (
+            {imageGallery.map((img, index) => (
               <img
                 key={index}
                 src={img}
@@ -95,6 +103,7 @@ const ProductDetailPage = () => {
           </button>
         </div>
       </div>
+
       {/* RELATED PRODUCTS */}
       <section className="max-w-6xl mx-auto px-4 mt-20">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
@@ -108,7 +117,7 @@ const ProductDetailPage = () => {
               className="border rounded-xl p-4 shadow hover:shadow-lg transition block hover:scale-[1.02]"
             >
               <img
-                src="https://placehold.co/300x200"
+                src={product.image || "https://placehold.co/300x200"}
                 alt={product.name}
                 className="w-full h-40 object-cover rounded-lg mb-4"
               />
@@ -122,8 +131,6 @@ const ProductDetailPage = () => {
         </div>
       </section>
     </>
-  ) : (
-    <div className="text-center py-20 text-gray-500">Loading...</div>
   );
 };
 
