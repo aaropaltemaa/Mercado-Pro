@@ -19,12 +19,13 @@
       "request": "launch",
       "name": "Debug Server",
       "program": "${workspaceFolder}/server/src/index.ts",
-      "outFiles": ["${workspaceFolder}/server/dist/**/*.js"],
-      "runtimeArgs": ["-r", "tsx/cjs"],
+      "runtimeArgs": ["-r", "tsx/register"],
       "env": {
         "NODE_ENV": "development"
       },
-      "cwd": "${workspaceFolder}/server"
+      "cwd": "${workspaceFolder}/server",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true
     }
   ]
 }
