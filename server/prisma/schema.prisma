@@ -31,6 +31,7 @@ model Product {
   price       Int
   createdAt   DateTime @default(now())
   seller      User?    @relation(fields: [sellerId], references: [id])
+  image String
   sellerId    String?
   cartItems CartItem[]
   orderItems  OrderItem[]
