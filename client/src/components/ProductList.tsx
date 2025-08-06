@@ -38,8 +38,8 @@ export default function ProductList() {
           >
             <img
               className="h-40 object-cover w-full rounded-t-xl"
-              src="https://placehold.co/300x200"
-              alt="Product image"
+              src={product.image}
+              alt={product.name}
             />
             <h2 className="font-semibold text-2xl">
               {highlightText(product.name, search)}
