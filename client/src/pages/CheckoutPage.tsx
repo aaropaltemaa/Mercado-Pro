@@ -1,7 +1,7 @@
 import { useCart } from "../store/cart";
-
 import PlaceOrderButton from "../components/PlaceOrderButton";
 import ShippingForm from "../components/forms/ShippingForm";
+import { Link } from "react-router-dom";
 
 const CheckoutPage = () => {
   const cartItems = useCart((state) => state.cartItems);
@@ -14,20 +14,27 @@ const CheckoutPage = () => {
     <div className="max-w-4xl mx-auto px-4 space-y-10">
       <h1 className="text-3xl font-bold text-center">Checkout</h1>
       <ShippingForm />
+
       <div className="space-y-6">
         {cartItems.map((item) => (
-          <div
+          <Link
+            to={`/products/${item.product.id}`}
             key={item.id}
-            className="flex justify-between items-center border rounded-lg p-4 shadow-sm"
+            className="flex items-center justify-between border rounded-lg p-4 shadow-sm gap-6 hover:bg-gray-50 transition"
           >
-            <div>
+            <img
+              src={item.product.image || "https://placehold.co/80x80"}
+              alt={item.product.name}
+              className="w-20 h-20 object-cover rounded-md border"
+            />
+            <div className="flex-1">
               <h2 className="text-lg font-semibold">{item.product.name}</h2>
               <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
             </div>
-            <div className="text-right font-bold ml-6">
+            <div className="text-right font-bold">
               ${(item.product.price * item.quantity).toFixed(2)}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
