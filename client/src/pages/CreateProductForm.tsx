@@ -16,6 +16,7 @@ const productSchema = z.object({
     .min(20, "Description must have at least 20 characters")
     .nonempty("Description is required"),
   price: z.number().nonnegative("Price cannot be negative"),
+  image: z.string().nonempty("Image URL is required"),
 });
 
 type Product = z.infer<typeof productSchema>;
