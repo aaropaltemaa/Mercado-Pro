@@ -87,6 +87,15 @@ const CreateProductForm = () => {
         {errors.price && (
           <div className="text-red-500 text-sm">{errors.price.message}</div>
         )}
+        <input
+          {...register("image")}
+          type="text"
+          placeholder="Image URL *"
+          className={inputClass}
+        />
+        {errors.image && (
+          <div className="text-red-500 text-sm">{errors.image.message}</div>
+        )}
 
         <button
           type="submit"
