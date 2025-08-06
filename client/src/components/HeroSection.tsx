@@ -21,8 +21,10 @@ const HeroSection = () => {
         {/* Right: Image */}
         <div className="flex-1">
           <img
-            src="https://placehold.co/500x300?text=Tech+Gear"
-            alt="Tech gear preview"
+            src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8
+
+"
+            alt="Macbook with accessories"
             className="w-full rounded-xl shadow-xl"
           />
         </div>
