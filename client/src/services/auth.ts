@@ -12,6 +12,7 @@ const register = async (credentials: {
   name: string;
   email: string;
   password: string;
+  role: string;
 }) => {
   const response = await axios.post(baseRegisterUrl, credentials);
   return response.data;
