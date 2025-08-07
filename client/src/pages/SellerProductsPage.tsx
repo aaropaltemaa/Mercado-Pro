@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import productService from "../services/products";
 import { useAuthStore } from "../store/auth";
-import { Link } from "react-router-dom";
-import { FaEdit } from "react-icons/fa";
 import type { Product } from "../../../types";
+import Modal from "../components/Modal";
 
 const SellerProductsPage = () => {
   const token = useAuthStore((state) => state.token);
@@ -43,14 +42,7 @@ const SellerProductsPage = () => {
                 <p className="text-green-600 font-bold text-lg">
                   ${product.price}
                 </p>
-
-                <Link
-                  to={`/products/${product.id}`}
-                  className="inline-flex items-center gap-2 mt-2 text-blue-600 hover:underline"
-                >
-                  <FaEdit />
-                  View or Edit
-                </Link>
+                <Modal product={product} />
               </div>
             </div>
           ))}
