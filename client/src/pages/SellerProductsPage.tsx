@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import productService from "../services/products";
 import { useAuthStore } from "../store/auth";
 import type { Product } from "../../../types";
@@ -8,12 +8,15 @@ const SellerProductsPage = () => {
   const token = useAuthStore((state) => state.token);
   const [sellerProducts, setSellerProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
+  const fetchSellerProducts = useCallback(async () => {
     if (!token) return;
-    productService.getSellerProducts(token).then((data) => {
-      setSellerProducts(data);
-    });
+    const data = await productService.getSellerProducts(token);
+    setSellerProducts(data);
   }, [token]);
+
+  useEffect(() => {
+    fetchSellerProducts();
+  }, [token, fetchSellerProducts]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
@@ -42,7 +45,7 @@ const SellerProductsPage = () => {
                 <p className="text-green-600 font-bold text-lg">
                   ${product.price}
                 </p>
-                <Modal product={product} />
+                <Modal product={product} onUpdate={fetchSellerProducts} />
               </div>
             </div>
           ))}

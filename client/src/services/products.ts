@@ -34,4 +34,21 @@ const create = (
   });
   return req.then((res) => res.data);
 };
-export default { getAll, create, getOne, getSellerProducts };
+
+const update = async (
+  productId: string,
+  data: Partial<{
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+  }>,
+  token: string
+) => {
+  const req = await axios.put(`${url}/${productId}`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return req.data;
+};
+
+export default { getAll, create, getOne, getSellerProducts, update };
