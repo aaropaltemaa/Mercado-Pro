@@ -8,11 +8,13 @@ import {
 import { Fragment } from "react";
 import { FaUserCircle, FaSignOutAlt, FaHistory } from "react-icons/fa";
 import { useAuthStore } from "../store/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const DropDownMenu = () => {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
 
   return (
     <div className="ml-auto flex items-center gap-4 relative">
@@ -58,7 +60,11 @@ const DropDownMenu = () => {
             {user && (
               <MenuItem>
                 <button
-                  onClick={logout}
+                  onClick={() => {
+                    logout();
+                    navigate("/");
+                    toast.success("Logged out succesfully!");
+                  }}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg w-full text-left text-red-600 hover:bg-red-100"
                 >
                   <FaSignOutAlt />

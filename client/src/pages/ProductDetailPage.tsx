@@ -7,13 +7,17 @@ import { FaCartPlus } from "react-icons/fa";
 import { useAuthStore } from "../store/auth";
 import toast from "react-hot-toast";
 import { useCart } from "../store/cart";
+import { Tooltip } from "react-tooltip";
 
 const ProductDetailPage = () => {
   const productId = useParams().id;
   const token = useAuthStore((state) => state.token);
+  const user = useAuthStore((state) => state.user);
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+
+  const isDisabled = !token || user?.role !== "BUYER";
 
   useEffect(() => {
     if (productId) {
@@ -96,11 +100,21 @@ const ProductDetailPage = () => {
 
           <button
             onClick={() => addToCart(product.id)}
-            className="mt-4 flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-green-600 text-white text-base font-semibold hover:bg-green-700 transition"
+            data-tooltip-id="product-tip"
+            data-tooltip-content={
+              !token
+                ? "You must be logged in."
+                : user?.role !== "BUYER"
+                  ? "Only buyers can add products to cart."
+                  : ""
+            }
+            className="mt-4 flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-green-600 text-white text-base font-semibold hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isDisabled}
           >
             <FaCartPlus />
             Add To Cart
           </button>
+          <Tooltip id="product-tip" />
         </div>
       </div>
 
