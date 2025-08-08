@@ -91,4 +91,28 @@ router.put("/:id", authenticate, async (req, res) => {
   return res.json(updated);
 });
 
+router.delete("/:id", authenticate, async (req, res) => {
+  const productId = req.params.id;
+
+  if (!req.user || !req.user.userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const userId = req.user.userId;
+
+  const productToDelete = await prisma.product.findFirst({
+    where: { id: productId, sellerId: userId },
+  });
+
+  if (!productToDelete) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  await prisma.product.delete({
+    where: { id: productId },
+  });
+
+  return res.status(204).send();
+});
+
 export default router;

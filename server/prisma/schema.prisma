@@ -44,13 +44,15 @@ enum Role {
 }
 
 model CartItem {
-  id  String @id @default(cuid())
-  userId  String
+  id        String   @id @default(cuid())
+  userId    String
   productId String
   quantity  Int
-  user User @relation(fields: [userId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
+
 
 enum OrderStatus {
   PENDING
@@ -59,15 +61,16 @@ enum OrderStatus {
 }
 
 model OrderItem {
-    id  String @id @default(cuid())
-    orderId String
-    productId String
-    quantity  Int
-    price Int
-    product Product @relation(fields: [productId], references: [id])
-    order Order @relation(fields: [orderId], references: [id])
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Int
 
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order   Order   @relation(fields: [orderId], references: [id])
 }
+
 
 model Order {
   id  String  @id @default(cuid())
