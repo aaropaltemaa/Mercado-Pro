@@ -3,6 +3,8 @@ import productService from "../services/products";
 import { useAuthStore } from "../store/auth";
 import type { Product } from "../../../types";
 import Modal from "../components/Modal";
+import { FaTrash } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const SellerProductsPage = () => {
   const token = useAuthStore((state) => state.token);
@@ -18,6 +20,19 @@ const SellerProductsPage = () => {
     fetchSellerProducts();
   }, [token, fetchSellerProducts]);
 
+  const handleDelete = async (productId: string) => {
+    if (!token) return;
+    try {
+      if (window.confirm("Are you sure you want to delete this product?")) {
+        await productService.remove(productId, token);
+        toast.success("Product deleted succesfully!");
+        fetchSellerProducts();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete product");
+    }
+  };
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
       <h1 className="text-3xl font-bold text-gray-800">My Products</h1>
@@ -45,7 +60,18 @@ const SellerProductsPage = () => {
                 <p className="text-green-600 font-bold text-lg">
                   ${product.price}
                 </p>
-                <Modal product={product} onUpdate={fetchSellerProducts} />
+                <div className="flex gap-6">
+                  <Modal product={product} onUpdate={fetchSellerProducts} />
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    title="Remove Product"
+                  >
+                    <FaTrash
+                      size={22}
+                      className="text-red-500 hover:text-red-700"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

@@ -51,4 +51,11 @@ const update = async (
   return req.data;
 };
 
-export default { getAll, create, getOne, getSellerProducts, update };
+const remove = async (productId: string, token: string) => {
+  const req = await axios.delete(`${url}/${productId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return req.data;
+};
+
+export default { getAll, create, getOne, getSellerProducts, update, remove };
