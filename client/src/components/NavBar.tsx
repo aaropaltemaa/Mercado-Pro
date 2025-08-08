@@ -20,19 +20,21 @@ const NavBar: React.FC = () => {
               Mercado Pro
             </h1>
           </Link>
-          <Link
-            to="/cart"
-            className=" text-white p-2 rounded-lg hover:opacity-60 transition shadow flex items-center justify-center"
-          >
-            <div className="relative">
-              <CiShoppingCart size={44} />
-              {cartCount > 0 && user && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                  {cartCount}
-                </span>
-              )}
-            </div>
-          </Link>
+          {user?.role === "BUYER" && (
+            <Link
+              to="/cart"
+              className=" text-white p-2 rounded-lg hover:opacity-60 transition shadow flex items-center justify-center"
+            >
+              <div className="relative">
+                <CiShoppingCart size={44} />
+                {cartCount > 0 && user && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+            </Link>
+          )}
         </div>
         <SearchBar />
         <div className="flex items-center gap-6">
