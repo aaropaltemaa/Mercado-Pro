@@ -26,7 +26,7 @@ router.get("/my", authenticate, async (req, res) => {
 
 // Create a product
 router.post("/", authenticate, async (req, res) => {
-  const { name, description, price, image } = req.body;
+  const { name, description, price, image, category } = req.body;
   const user = req.user;
 
   if (!user || user.role !== "SELLER") {
@@ -39,6 +39,7 @@ router.post("/", authenticate, async (req, res) => {
       description,
       price: Number(price),
       image,
+      category,
       sellerId: user.userId,
     },
   });
@@ -72,7 +73,7 @@ router.put("/:id", authenticate, async (req, res) => {
 
   if (!product) return res.status(404).json({ error: "Product not found" });
 
-  const allowed = ["name", "description", "price", "image"];
+  const allowed = ["name", "description", "price", "image", "category"];
   const data = Object.fromEntries(
     allowed
       .filter((key) => typeof req.body[key] !== "undefined")

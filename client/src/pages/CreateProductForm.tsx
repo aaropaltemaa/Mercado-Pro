@@ -5,18 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import productService from "../services/products";
 import { toast } from "react-hot-toast";
 import { useAuthStore } from "../store/auth";
+import CategorySelect from "../components/CategorySelect";
 
 const productSchema = z.object({
-  name: z
-    .string()
-    .min(4, "Product name must have at least 4 characters")
-    .nonempty("Product name is required"),
-  description: z
-    .string()
-    .min(20, "Description must have at least 20 characters")
-    .nonempty("Description is required"),
-  price: z.number().nonnegative("Price cannot be negative"),
-  image: z.string().nonempty("Image URL is required"),
+  name: z.string().min(4).nonempty(),
+  description: z.string().min(20).nonempty(),
+  price: z.number().nonnegative(),
+  image: z.string().nonempty(),
+  category: z.enum([
+    "Laptops",
+    "Phones",
+    "Accessories",
+    "Monitors",
+    "Audio",
+    "Other",
+  ]),
 });
 
 type Product = z.infer<typeof productSchema>;
@@ -33,10 +36,17 @@ const CreateProductForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
+    watch,
   } = useForm<Product>({
     resolver: zodResolver(productSchema),
     mode: "onTouched",
+    defaultValues: {
+      category: "Other", // optional default
+    },
   });
+
+  const selectedCategory = watch("category");
 
   const onSubmit = async (data: Product) => {
     try {
@@ -67,7 +77,6 @@ const CreateProductForm = () => {
         <textarea
           {...register("description")}
           rows={5}
-          cols={33}
           placeholder="Description *"
           className={inputClass}
         />
@@ -87,6 +96,7 @@ const CreateProductForm = () => {
         {errors.price && (
           <div className="text-red-500 text-sm">{errors.price.message}</div>
         )}
+
         <input
           {...register("image")}
           type="text"
@@ -95,6 +105,17 @@ const CreateProductForm = () => {
         />
         {errors.image && (
           <div className="text-red-500 text-sm">{errors.image.message}</div>
+        )}
+
+        <label className="block font-medium">Category *</label>
+        <CategorySelect
+          value={selectedCategory}
+          onChange={(value) =>
+            setValue("category", value as Product["category"])
+          }
+        />
+        {errors.category && (
+          <div className="text-red-500 text-sm">{errors.category.message}</div>
         )}
 
         <button
