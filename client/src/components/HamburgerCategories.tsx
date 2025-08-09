@@ -80,34 +80,34 @@ const HamburgerCategories = () => {
               </div>
 
               <nav className="mt-1 flex flex-col">
-                <Link to="/laptops" className={linkBase}>
+                <Link to="/category/laptops" className={linkBase}>
                   <TbDeviceLaptop className={iconBase} />
                   <span>Laptops</span>
                 </Link>
 
-                <Link to="/phones" className={linkBase}>
+                <Link to="/category/phones" className={linkBase}>
                   <TbDeviceMobile className={iconBase} />
                   <span>Phones</span>
                 </Link>
 
-                <Link to="/accessories" className={linkBase}>
+                <Link to="/category/accessories" className={linkBase}>
                   <TbPlug className={iconBase} />
                   <span>Accessories</span>
                 </Link>
 
-                <Link to="/monitors" className={linkBase}>
+                <Link to="/category/monitors" className={linkBase}>
                   <TbDeviceDesktop className={iconBase} />
                   <span>Monitors</span>
                 </Link>
 
-                <Link to="/audio" className={linkBase}>
+                <Link to="/category/audio" className={linkBase}>
                   <TbHeadphones className={iconBase} />
                   <span>Audio</span>
                 </Link>
 
                 <div className="my-1 h-px bg-slate-100" />
 
-                <Link to="/other" className={linkBase}>
+                <Link to="/category/other" className={linkBase}>
                   <TbBoxMultiple className={iconBase} />
                   <span>Other</span>
                 </Link>

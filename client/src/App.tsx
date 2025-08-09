@@ -15,6 +15,7 @@ import RegisterForm from "./components/forms/RegisterForm";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import OrderHistoryPage from "./pages/OrderHistoryPage";
 import SellerProductsPage from "./pages/SellerProductsPage";
+import CategoryPage from "./pages/CategoryPage";
 
 const App = () => {
   const initialize = useAuthStore((state) => state.initialize);
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/order-history" element={<OrderHistoryPage />} />
         <Route path="/my-products" element={<SellerProductsPage />} />
+        <Route path="/category/:categoryName" element={<CategoryPage />} />
       </Routes>
     </div>
   );
