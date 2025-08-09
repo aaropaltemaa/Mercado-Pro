@@ -4,6 +4,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { useCart } from "../store/cart";
 import SearchBar from "./SearchBar";
 import DropdownMenu from "./DropDownMenu";
+import HamburgerCategories from "./HamburgerCategories";
 
 const NavBar: React.FC = () => {
   const user = useAuthStore((state) => state.user);
@@ -20,6 +21,10 @@ const NavBar: React.FC = () => {
               Mercado Pro
             </h1>
           </Link>
+          <HamburgerCategories />
+        </div>
+        <SearchBar />
+        <div className="flex items-center gap-6">
           {user?.role === "BUYER" && (
             <Link
               to="/cart"
@@ -35,9 +40,6 @@ const NavBar: React.FC = () => {
               </div>
             </Link>
           )}
-        </div>
-        <SearchBar />
-        <div className="flex items-center gap-6">
           {user && <DropdownMenu />}
 
           {user?.role === "SELLER" && (

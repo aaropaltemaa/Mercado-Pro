@@ -6,7 +6,7 @@ const SearchBar = () => {
   const setSearch = useProductStore((state) => state.setSearch);
 
   return (
-    <div className="relative w-full max-w-2xl">
+    <div className="relative w-full max-w-2xl mr-10">
       <input
         className="border rounded-3xl py-2.5 px-4 w-full"
         type="text"
