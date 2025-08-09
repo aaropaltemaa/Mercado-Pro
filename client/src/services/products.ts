@@ -19,6 +19,11 @@ const getSellerProducts = (token: string) => {
   return req.then((res) => res.data);
 };
 
+const getByCategory = async (categoryName: string) => {
+  const req = await axios.get(`${url}/category/${categoryName}`);
+  return req.data;
+};
+
 const create = (
   productData: {
     name: string;
@@ -58,4 +63,12 @@ const remove = async (productId: string, token: string) => {
   return req.data;
 };
 
-export default { getAll, create, getOne, getSellerProducts, update, remove };
+export default {
+  getAll,
+  create,
+  getOne,
+  getSellerProducts,
+  update,
+  remove,
+  getByCategory,
+};

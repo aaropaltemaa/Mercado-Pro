@@ -9,6 +9,7 @@ import {
 } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useProductStore } from "../store/products";
 
 const sortOptions = [
   "Newest",
@@ -20,12 +21,15 @@ const brandOptions = ["Dell", "Apple", "Samsung", "LG", "Asus"];
 
 export default function FilterBar() {
   const [selectedSort, setSelectedSort] = useState(sortOptions[0]);
+  const products = useProductStore((state) => state.products);
 
   return (
     <div className="sticky top-[70px] z-30 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-4 py-3 gap-4">
         {/* LEFT: Result Count */}
-        <div className="text-sm text-gray-600 font-medium">24 results</div>
+        <div className="text-sm text-gray-600 font-medium">
+          {products.length} results
+        </div>
 
         {/* RIGHT: Controls */}
         <div className="flex flex-wrap items-center gap-3">

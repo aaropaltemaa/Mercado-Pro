@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../prisma";
 import { authenticate } from "../middleware/auth";
+import { Category } from "@prisma/client";
 const router = express.Router();
 
 // Get all products
@@ -54,6 +55,31 @@ router.get("/:id", async (req, res) => {
     where: { id: productId },
   });
   res.json(product);
+});
+
+router.get("/category/:category", async (req, res) => {
+  const { category } = req.params;
+
+  // Map lowercase URL param → Enum value
+  const formattedCategory =
+    category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
+  // Validate category against the enum
+  if (!Object.values(Category).includes(formattedCategory as Category)) {
+    return res.status(400).json({ error: "Invalid category" });
+  }
+
+  try {
+    const products = await prisma.product.findMany({
+      where: { category: formattedCategory as Category },
+      orderBy: { createdAt: "desc" },
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error("Error fetching category products:", error);
+    res.status(500).json({ error: "Failed to fetch category products" });
+  }
 });
 
 router.put("/:id", authenticate, async (req, res) => {
