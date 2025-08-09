@@ -113,7 +113,7 @@ const HamburgerCategories = () => {
                 </Link>
               </nav>
 
-              {/* Footer actions (optional) */}
+              {/* Footer actions  */}
               <div className="mt-2 flex items-center justify-between px-2">
                 <Link
                   to="/products"
@@ -121,7 +121,7 @@ const HamburgerCategories = () => {
                 >
                   Shop all products
                 </Link>
-                {/* Tiny helper text (optional) */}
+                {/* Tiny helper text  */}
                 <span className="text-[10px] uppercase tracking-wide text-slate-400">
                   Updated daily
                 </span>

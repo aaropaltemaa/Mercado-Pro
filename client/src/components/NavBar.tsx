@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
   );
 
   return (
-    <nav className="h-20 w-full bg-gray-800 text-white shadow-lg">
+    <nav className="h-20 w-full bg-slate-900 text-white shadow-lg">
       <div className="flex items-center justify-between h-full px-8">
         <div className="flex flex-row items-center gap-5">
           <Link to="/" className="hover:opacity-80 transition">
