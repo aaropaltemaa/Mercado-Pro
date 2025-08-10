@@ -5,7 +5,7 @@ import { useAuthStore } from "../store/auth";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-const ItemCard = () => {
+const CartItemCard = () => {
   const [updatingItemId, setUpdatingItemId] = useState<string | null>(null);
   const token = useAuthStore((state) => state.token);
   const cartItems = useCart((state) => state.cartItems);
@@ -115,4 +115,4 @@ const ItemCard = () => {
   );
 };
 
-export default ItemCard;
+export default CartItemCard;
