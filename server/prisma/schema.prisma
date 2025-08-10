@@ -14,15 +14,18 @@ datasource db {
 }
 
 model User {
-  id      String    @id @default(cuid())
-  name    String
-  email   String    @unique
+  id        String    @id @default(cuid())
+  name      String
+  email     String    @unique
   password  String
-  role  Role @default(BUYER)
-  Product Product[]
+  role      Role      @default(BUYER)
+  Product   Product[]
   cartItems CartItem[]
-  orders  Order[]
+  orders    Order[]
+
+  reviews   Review[]
 }
+
 
 enum Category {
   Laptops
@@ -40,12 +43,17 @@ model Product {
   price       Int
   createdAt   DateTime @default(now())
   seller      User?    @relation(fields: [sellerId], references: [id])
-  image String
+  image       String
   sellerId    String?
-  cartItems CartItem[]
+  cartItems   CartItem[]
   orderItems  OrderItem[]
-  category  Category @default(Other)
+  category    Category @default(Other)
+
+  reviews        Review[]
+  averageRating  Float   @default(0)
+  reviewsCount   Int     @default(0)
 }
+
 
 enum Role {
   BUYER
@@ -97,4 +105,21 @@ model Order {
   postalCode  String
   country     String
   phone       String
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  productId  String
+  userId     String
+  rating     Int
+  comment    String?        // optional
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // relations
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // one review per user per product
+  @@unique([userId, productId])
 }
