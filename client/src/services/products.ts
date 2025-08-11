@@ -29,6 +29,17 @@ const getReviews = async (productId: string) => {
   return req.data;
 };
 
+const createReview = async (
+  productId: string,
+  payload: { rating: number; comment?: string },
+  token: string
+) => {
+  const res = await axios.post(`${url}/${productId}/reviews`, payload, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
+
 const create = (
   productData: {
     name: string;
@@ -67,7 +78,6 @@ const remove = async (productId: string, token: string) => {
   });
   return req.data;
 };
-
 export default {
   getAll,
   create,
@@ -77,4 +87,5 @@ export default {
   remove,
   getByCategory,
   getReviews,
+  createReview,
 };

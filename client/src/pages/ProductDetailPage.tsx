@@ -10,6 +10,7 @@ import { useCart } from "../store/cart";
 import { Tooltip } from "react-tooltip";
 import ProductReviews from "../components/ProductReviews";
 import type { ReviewsResponse } from "../../../types";
+import ReviewForm from "../components/forms/ReviewForm";
 
 const ProductDetailPage = () => {
   const productId = useParams().id;
@@ -145,11 +146,23 @@ const ProductDetailPage = () => {
           <Tooltip id="product-tip" />
         </div>
       </div>
-      <ProductReviews
-        productId={productId ?? ""}
-        reviews={reviews}
-        setReviews={setReviews}
-      />
+      <section className="max-w-6xl mx-auto px-4">
+        <ProductReviews
+          productId={productId ?? ""}
+          reviews={reviews}
+          setReviews={setReviews}
+        />
+        <ReviewForm
+          productId={productId ?? ""}
+          token={token}
+          role={user?.role ?? null}
+          onSuccess={async () => {
+            if (!productId) return;
+            const data = await productService.getReviews(productId);
+            setReviews(data); // refresh list + averages
+          }}
+        />
+      </section>
 
       {/* RELATED PRODUCTS */}
       <section className="max-w-6xl mx-auto px-4">
