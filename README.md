@@ -1,6 +1,18 @@
 # 🛒 Mercado Pro
 
-**Mercado Pro** is a full-stack multi-vendor e-commerce platform built with **React**, **Express**, **Prisma**, and **SQLite**. It allows multiple sellers to list products, while buyers can browse, shop, and manage their carts and orders. This project is built for scalability and extensibility, with clean architecture and modern tooling.
+**Mercado Pro** is a full-stack multi-vendor e-commerce platform built with **React**, **Express**, **Prisma**, and **SQLite**.  
+It allows multiple sellers to list products, while buyers can browse, shop, and manage their carts and orders.
+
+---
+
+## 🌐 Live Demo
+
+🔗 **[View the Live App](link goes here)**
+
+**Demo Accounts:**
+
+- Seller → `seller@demo.dev` / `password123`
+- Buyer → `buyer@demo.dev` / `password123`
 
 ---
 
