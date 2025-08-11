@@ -26,6 +26,20 @@ async function main() {
     },
   });
 
+  // Create 1 buyer
+  const buyer = await prisma.user.create({
+    data: {
+      name: "Tech Buyer",
+      email: "buyer@demo.dev",
+      password: passwordHash, // same "password123"
+      role: Role.BUYER,
+    },
+  });
+
+  console.log("Demo accounts:");
+  console.log("  Seller -> seller@demo.dev / password123");
+  console.log("  Buyer  -> buyer@demo.dev  / password123");
+
   // Insert curated products
   for (const product of seedProductData) {
     await prisma.product.create({
