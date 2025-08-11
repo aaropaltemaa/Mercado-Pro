@@ -6,26 +6,49 @@
 
 ## 📦 Tech Stack
 
-| Layer       | Tech                           |
-| ----------- | ------------------------------ |
-| Frontend    | React (Vite) + Tailwind CSS    |
-| Backend     | Express.js + Node.js           |
-| ORM & DB    | Prisma + SQLite (easy setup)   |
-| Auth (soon) | JWT or Clerk/Auth.js (planned) |
-| Payments    | Stripe (planned)               |
+| Layer    | Tech                         |
+| -------- | ---------------------------- |
+| Frontend | React (Vite) + Tailwind CSS  |
+| Backend  | Express.js + Node.js         |
+| ORM & DB | Prisma + SQLite (easy setup) |
+| Auth     | JWT                          |
+| Payments | Stripe (planned)             |
 
 ---
 
 ## 🚀 Features
 
-- [x] Multi-vendor product system
-- [x] RESTful API with Express
-- [x] Prisma ORM for type-safe DB queries
-- [x] SQLite local DB for easy development
-- [x] User CRUD (create/read)
-- [ ] JWT-based authentication (coming soon)
-- [ ] Seller dashboards & analytics (coming soon)
-- [ ] Stripe Connect integration (coming soon)
+### 👥 User Accounts & Roles
+
+- **Role selection at registration:** Choose Buyer or Seller
+- **Secure authentication:** JWT-based login
+- **Role-based access control:** Permissions by user type
+
+### 🛍️ Products
+
+- **Seller management:** Create, edit, and delete own products
+- **Categories & filtering:** Organize and find products easily
+- **Product images:** Upload and display images
+- **Product detail page:** View related products
+- **Average rating display:** See product ratings
+
+### 🛒 Shopping Cart
+
+- **Add to cart:** From product detail page
+- **Adjust quantities:** Update item amounts
+- **Remove items:** Delete from cart
+- **View cart total:** See order summary
+
+### 📦 Orders
+
+- **Checkout:** Fill shipping form to place order
+- **Order history:** Buyers can view past orders
+- **Seller dashboard:** Manage own products and orders
+
+### ⭐ Reviews
+
+- **Ratings & comments:** Buyers leave feedback
+- **Average rating:** Products show star rating and review count
 
 ---
 
@@ -50,7 +73,7 @@ mercado-pro/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/mercado-pro.git
+git clone https://github.com/aaropaltemaa/mercado-pro.git
 cd mercado-pro
 ```
 
