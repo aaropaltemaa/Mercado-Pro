@@ -80,7 +80,10 @@ mercado-pro/
 
 ---
 
-## ⚙️ Getting Started
+## 💻 Local Development
+
+If you only want to try the app → View Live Demo and use the demo credentials above.
+If you want to run it locally:
 
 ### 1. Clone the repo
 
@@ -95,11 +98,12 @@ cd mercado-pro
 pnpm install
 ```
 
-### 3. Run the backend (SQLite + Prisma)
+### 3. Set up the database
 
 ```bash
 cd server
 npx prisma migrate dev --name init
+npx prisma db seed
 pnpm dev
 ```
 
@@ -114,7 +118,7 @@ Visit: http://localhost:5173
 
 ---
 
-## 🧪 API Routes (example)
+## 🧪 API Examples
 
 **Get all users**
 
@@ -136,32 +140,23 @@ Content-Type: application/json
 
 ---
 
-## 🧠 What You'll Learn
-
-- How to use Prisma with SQLite for local development
-- How to build a REST API with Express and TypeScript
-- How to structure a full-stack monorepo using pnpm workspaces
-- How to plan scalable e-commerce architecture
-
----
-
 ## 🗺 Roadmap
 
-- User authentication (JWT or Clerk)
-- Seller product management
-- Orders, carts, and checkout flow
-- Admin dashboard for moderation
-- Stripe Connect for vendor payouts
-- Supabase/PostgreSQL support for production
+- ✅ Buyer & Seller roles
+- ✅ Cart & order system
+- ✅ Ratings & reviews
+- ⏳ Stripe payments
+- ⏳ PostgreSQL/Supabase support
+- ⏳ Admin dashboard
 
 ---
 
 ## 📝 License
 
-MIT — free to use and modify.
+MIT — free to use, modify, and build on.
 
 ---
 
 ## 🙌 Contributing
 
-Open to suggestions, pull requests, and ideas. Feel free to fork the project or open an issue.
+Pull requests and suggestions are welcome!
