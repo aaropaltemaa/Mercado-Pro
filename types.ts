@@ -89,3 +89,28 @@ export interface OrderItem {
     sellerId: string;
   };
 }
+
+// A single review item
+export interface Review {
+  id: string;
+  productId: string;
+  userId: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    name: string;
+  };
+}
+
+// The API response shape from GET /products/:id/reviews
+export interface ReviewsResponse {
+  reviews: Review[];
+  page: number;
+  pageSize: number;
+  total: number;
+  averageRating: number;
+  reviewsCount: number;
+}

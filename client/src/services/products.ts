@@ -24,6 +24,11 @@ const getByCategory = async (categoryName: string) => {
   return req.data;
 };
 
+const getReviews = async (productId: string) => {
+  const req = await axios.get(`${url}/${productId}/reviews`);
+  return req.data;
+};
+
 const create = (
   productData: {
     name: string;
@@ -71,4 +76,5 @@ export default {
   update,
   remove,
   getByCategory,
+  getReviews,
 };

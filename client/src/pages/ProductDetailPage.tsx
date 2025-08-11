@@ -8,6 +8,7 @@ import { useAuthStore } from "../store/auth";
 import toast from "react-hot-toast";
 import { useCart } from "../store/cart";
 import { Tooltip } from "react-tooltip";
+import ProductReviews from "../components/ProductReviews";
 
 const ProductDetailPage = () => {
   const productId = useParams().id;
@@ -117,9 +118,10 @@ const ProductDetailPage = () => {
           <Tooltip id="product-tip" />
         </div>
       </div>
+      <ProductReviews productId={productId ?? ""} />
 
       {/* RELATED PRODUCTS */}
-      <section className="max-w-6xl mx-auto px-4 mt-20">
+      <section className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Related Products
         </h2>
