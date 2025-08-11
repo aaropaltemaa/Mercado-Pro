@@ -21,7 +21,7 @@ const SearchBar = () => {
     <div className="relative w-full max-w-2xl mr-10">
       <input
         ref={inputRef}
-        className="border rounded-3xl py-2.5 px-4 w-full"
+        className="border rounded-3xl py-2.5 px-4 w-full focus:ring-2 focus:ring-blue-500 outline-none"
         type="text"
         placeholder="Search for products..."
         value={search}
@@ -39,29 +39,40 @@ const SearchBar = () => {
 
       {showDropdown && (
         <div
-          className="absolute left-0 top-full mt-2 w-full bg-white border rounded-xl shadow-lg z-50 max-h-72 overflow-auto"
-          // Prevent blur when clicking dropdown
-          onMouseDown={(e) => e.preventDefault()}
+          className="absolute left-0 top-full mt-2 w-full bg-white border rounded-xl shadow-lg z-50 max-h-80 overflow-auto"
+          onMouseDown={(e) => e.preventDefault()} // prevent blur
         >
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <Link
                 key={product.id}
                 to={`/products/${product.id}`}
-                className="block px-4 py-2 hover:bg-blue-50 text-gray-800"
+                className="flex items-center gap-4 px-4 py-3 hover:bg-blue-50 transition"
                 onClick={() => {
                   setShowDropdown(false);
-                  setSearch(""); // optional: clear search
+                  setSearch("");
                 }}
               >
-                <div className="font-semibold">{product.name}</div>
-                <div className="text-sm text-gray-500 truncate">
-                  {product.description}
+                <img
+                  src={product.image || "https://placehold.co/60"}
+                  alt={product.name}
+                  className="w-14 h-14 object-cover rounded-lg border"
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-gray-900 truncate">
+                    {product.name}
+                  </div>
+                  <div className="text-sm text-gray-500 truncate">
+                    {product.description}
+                  </div>
+                  <div className="text-sm font-semibold text-green-600">
+                    ${product.price}
+                  </div>
                 </div>
               </Link>
             ))
           ) : (
-            <div className="px-4 py-2 text-gray-500">No products found.</div>
+            <div className="px-4 py-3 text-gray-500">No products found.</div>
           )}
         </div>
       )}
