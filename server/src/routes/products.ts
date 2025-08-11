@@ -57,11 +57,51 @@ router.get("/:id", async (req, res) => {
   res.json(product);
 });
 
-/* router.get("/:id/reviews", async (req, res) => {
-  const productId = req.params.id
+// GET /products/:id/reviews?page=1&pageSize=10
+router.get("/:id/reviews", async (req, res) => {
+  const productId = req.params.id;
 
-  const { page, pageSize } = req.query
-}) */
+  // parse & guard pagination
+  const page = Math.max(
+    1,
+    Number.parseInt((req.query.page as string) ?? "1", 10)
+  );
+  const pageSize = Math.min(
+    50,
+    Math.max(1, Number.parseInt((req.query.pageSize as string) ?? "10", 10))
+  );
+  const skip = (page - 1) * pageSize;
+
+  // ensure product exists
+  const exists = await prisma.product.findUnique({
+    where: { id: productId },
+    select: { id: true, averageRating: true, reviewsCount: true },
+  });
+  if (!exists) return res.status(404).json({ error: "Product not found." });
+
+  // total count (for pagination UI)
+  const total = await prisma.review.count({ where: { productId } });
+
+  // fetch page of reviews, newest first, include reviewer name
+  const reviews = await prisma.review.findMany({
+    where: { productId },
+    orderBy: { createdAt: "desc" },
+    skip,
+    take: pageSize,
+    include: {
+      user: { select: { id: true, name: true } },
+    },
+  });
+
+  return res.json({
+    reviews,
+    page,
+    pageSize,
+    total,
+    averageRating: exists.averageRating ?? 0,
+    reviewsCount: exists.reviewsCount ?? total,
+  });
+});
 
 router.post("/:id/reviews", authenticate, async (req, res) => {
   const productId = req.params.id;
