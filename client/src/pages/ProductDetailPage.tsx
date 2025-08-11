@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { useCart } from "../store/cart";
 import { Tooltip } from "react-tooltip";
 import ProductReviews from "../components/ProductReviews";
+import type { ReviewsResponse } from "../../../types";
 
 const ProductDetailPage = () => {
   const productId = useParams().id;
@@ -17,6 +18,7 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [reviews, setReviews] = useState<ReviewsResponse | null>(null);
 
   const isDisabled = !token || user?.role !== "BUYER";
 
@@ -88,7 +90,10 @@ const ProductDetailPage = () => {
           <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
 
           <div className="flex items-center gap-2 text-yellow-500">
-            ★★★★☆ <span className="text-sm text-gray-600">(120 reviews)</span>
+            ★★★★☆{" "}
+            <span className="text-sm text-gray-600">
+              ({reviews?.reviewsCount} reviews)
+            </span>
           </div>
 
           <div className="text-green-600 font-bold text-2xl">
@@ -118,7 +123,11 @@ const ProductDetailPage = () => {
           <Tooltip id="product-tip" />
         </div>
       </div>
-      <ProductReviews productId={productId ?? ""} />
+      <ProductReviews
+        productId={productId ?? ""}
+        reviews={reviews}
+        setReviews={setReviews}
+      />
 
       {/* RELATED PRODUCTS */}
       <section className="max-w-6xl mx-auto px-4">
