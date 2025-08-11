@@ -59,6 +59,20 @@ const ProductDetailPage = () => {
     "https://placehold.co/500x400?text=Alt+3",
   ];
 
+  // Derive rating data from the fetched reviews response
+  const avgRating = reviews?.averageRating ?? 0;
+  const reviewCount = reviews?.reviewsCount ?? 0;
+
+  // Tiny helper to render 5 stars based on average rating (rounded)
+  const renderStars = (avg: number) => {
+    const full = Math.round(avg); // round to nearest whole for display
+    return Array.from({ length: 5 }, (_, i) => (
+      <span key={i} className="text-yellow-500 text-lg leading-none">
+        {i < full ? "★" : "☆"}
+      </span>
+    ));
+  };
+
   return (
     <>
       <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10 items-start">
@@ -89,10 +103,18 @@ const ProductDetailPage = () => {
         <div className="flex flex-col gap-6 p-6 rounded-xl shadow-lg border max-w-md w-full">
           <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
 
-          <div className="flex items-center gap-2 text-yellow-500">
-            ★★★★☆{" "}
+          <div className="flex items-center gap-2">
+            {/* Stars */}
+            <div className="flex items-center gap-1">
+              {renderStars(avgRating)}
+            </div>
+
+            {/* Numeric average + count */}
+            <span className="text-sm text-gray-700 font-medium">
+              {reviews ? avgRating.toFixed(1) : "—"}
+            </span>
             <span className="text-sm text-gray-600">
-              ({reviews?.reviewsCount} reviews)
+              {reviews ? `(${reviewCount} reviews)` : "(loading…)"}
             </span>
           </div>
 
