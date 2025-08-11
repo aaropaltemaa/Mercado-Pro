@@ -57,6 +57,96 @@ router.get("/:id", async (req, res) => {
   res.json(product);
 });
 
+/* router.get("/:id/reviews", async (req, res) => {
+  const productId = req.params.id
+
+  const { page, pageSize } = req.query
+}) */
+
+router.post("/:id/reviews", authenticate, async (req, res) => {
+  const productId = req.params.id;
+  const user = req.user;
+  const { rating, comment } = req.body as { rating: number; comment?: string };
+
+  // Auth & role
+  if (!user) return res.status(401).json({ error: "Unauthorized" });
+  if (user.role !== "BUYER") {
+    return res.status(403).json({ error: "Only buyers can create reviews." });
+  }
+
+  // Validate rating
+  if (
+    typeof rating !== "number" ||
+    Number.isNaN(rating) ||
+    rating < 1 ||
+    rating > 5
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Rating must be a number between 1 and 5." });
+  }
+
+  // Ensure product exists
+  const product = await prisma.product.findUnique({ where: { id: productId } });
+  if (!product) return res.status(404).json({ error: "Product not found." });
+
+  // verify the user has purchased this product
+  const hasPurchased = await prisma.orderItem.findFirst({
+    where: {
+      productId,
+      order: { userId: user.userId, status: { in: ["PAID", "PENDING"] } }, // tune this rule if needed
+    },
+  });
+  if (!hasPurchased) {
+    return res
+      .status(403)
+      .json({ error: "You can only review products you’ve bought." });
+  }
+
+  // Enforce one review per user per product
+  const existing = await prisma.review.findFirst({
+    where: { productId, userId: user.userId },
+  });
+  if (existing) {
+    return res
+      .status(409)
+      .json({ error: "You have already reviewed this product." });
+  }
+
+  // Create + recompute aggregates inside a transaction
+  const result = await prisma.$transaction(async (tx) => {
+    const created = await tx.review.create({
+      data: {
+        productId,
+        userId: user.userId,
+        rating,
+        comment: comment?.trim() || null,
+      },
+      include: {
+        user: { select: { id: true, name: true } },
+      },
+    });
+
+    const agg = await tx.review.aggregate({
+      where: { productId },
+      _avg: { rating: true },
+      _count: { rating: true },
+    });
+
+    await tx.product.update({
+      where: { id: productId },
+      data: {
+        averageRating: agg._avg.rating ?? 0,
+        reviewsCount: agg._count.rating ?? 0,
+      },
+    });
+
+    return created;
+  });
+
+  return res.status(201).json(result);
+});
+
 router.get("/category/:category", async (req, res) => {
   const { category } = req.params;
 
