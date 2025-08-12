@@ -112,20 +112,6 @@ const HamburgerCategories = () => {
                   <span>Other</span>
                 </Link>
               </nav>
-
-              {/* Footer actions  */}
-              <div className="mt-2 flex items-center justify-between px-2">
-                <Link
-                  to="/products"
-                  className="text-xs font-medium text-slate-600 hover:text-blue-600 transition-colors"
-                >
-                  Shop all products
-                </Link>
-                {/* Tiny helper text  */}
-                <span className="text-[10px] uppercase tracking-wide text-slate-400">
-                  Updated daily
-                </span>
-              </div>
             </PopoverPanel>
           </Transition>
         </>
