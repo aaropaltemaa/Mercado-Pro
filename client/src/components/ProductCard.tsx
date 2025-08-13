@@ -3,14 +3,44 @@ import { Link } from "react-router-dom";
 import highlightText from "./HighLightText";
 import { useProductStore } from "../store/products";
 import { FaEye } from "react-icons/fa";
+import { useMemo } from "react";
 
 const ProductCard = () => {
-  const search = useProductStore((state) => state.search);
-  const products = useProductStore((state) => state.products);
+  const { products, search, sortOption, selectedBrands, priceRange } =
+    useProductStore();
 
-  const filteredProducts = products.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = useMemo(() => {
+    const q = search.trim().toLowerCase();
+
+    let list = products
+      // search
+      .filter((p) => (q ? p.name.toLowerCase().includes(q) : true))
+      // brand
+      .filter((p) =>
+        selectedBrands.length > 0 ? selectedBrands.includes(p.brand) : true
+      )
+      // price
+      .filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1]);
+
+    // sort
+    list = list.sort((a, b) => {
+      switch (sortOption) {
+        case "Price: Low to High":
+          return a.price - b.price;
+        case "Price: High to Low":
+          return b.price - a.price;
+        case "Best Rated":
+          return (b.averageRating ?? 0) - (a.averageRating ?? 0);
+        case "Newest":
+        default:
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+      }
+    });
+
+    return list;
+  }, [products, search, sortOption, selectedBrands, priceRange]);
 
   if (filteredProducts.length === 0) {
     return <div className="text-lg">No products found.</div>;

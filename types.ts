@@ -1,10 +1,30 @@
-export type Product = {
+export type Brand =
+  | "Apple"
+  | "Samsung"
+  | "Dell"
+  | "Sony"
+  | "Logitech"
+  | "LG"
+  | "Asus"
+  | "Other";
+
+export interface Product {
   id: string;
   name: string;
   description: string;
   price: number;
   image: string;
-};
+  category:
+    | "Laptops"
+    | "Phones"
+    | "Accessories"
+    | "Monitors"
+    | "Audio"
+    | "Other";
+  brand: Brand;
+  averageRating: number;
+  createdAt: string;
+}
 
 export type CartItem = {
   id: string;
@@ -40,6 +60,17 @@ export type ProductState = {
   search: string;
   setProducts: (items: Product[]) => void;
   setSearch: (query: string) => void;
+  sortOption: string;
+  setSortOption: (option: string) => void;
+
+  selectedBrands: string[];
+  toggleBrand: (brand: string) => void;
+  clearBrands: () => void;
+
+  priceRange: [number, number];
+  setPriceRange: (range: [number, number]) => void;
+
+  clearFilters: () => void;
 };
 
 export type ShippingData = {

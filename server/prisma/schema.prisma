@@ -36,6 +36,17 @@ enum Category {
   Other
 }
 
+enum Brand {
+  Apple
+  Samsung
+  Dell
+  Sony
+  Logitech
+  LG
+  Asus
+  Other
+}
+
 model Product {
   id          String   @id @default(cuid())
   name        String
@@ -48,6 +59,7 @@ model Product {
   cartItems   CartItem[]
   orderItems  OrderItem[]
   category    Category @default(Other)
+  brand       Brand     @default(Other)  
 
   reviews        Review[]
   averageRating  Float   @default(0)
@@ -123,3 +135,5 @@ model Review {
   // one review per user per product
   @@unique([userId, productId])
 }
+
+
