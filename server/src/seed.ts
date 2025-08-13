@@ -31,7 +31,7 @@ async function main() {
     data: {
       name: "Tech Buyer",
       email: "buyer@demo.dev",
-      password: passwordHash, // same "password123"
+      password: passwordHash,
       role: Role.BUYER,
     },
   });

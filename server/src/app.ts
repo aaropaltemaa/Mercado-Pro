@@ -16,6 +16,4 @@ app.use("/users", userRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+export default app;
