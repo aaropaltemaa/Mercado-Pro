@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:db": "dotenv -e .env.test -- prisma migrate deploy",
+    "test": "dotenv -e .env.test -- vitest run",
+    "test:watch": "dotenv -e .env.test -- vitest",
     "dev": "nodemon --exec tsx src/server.ts",
     "start": "tsc && node dist/server.js",
     "build": "tsc"

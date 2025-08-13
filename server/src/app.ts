@@ -16,4 +16,6 @@ app.use("/users", userRoutes);
 app.use("/cart", cartRoutes);
 app.use("/orders", orderRoutes);
 
+app.get("/health", (_req, res) => res.json({ ok: true })); // simple test route
+
 export default app;
