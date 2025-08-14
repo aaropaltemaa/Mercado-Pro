@@ -27,7 +27,7 @@ router.get("/my", authenticate, async (req, res) => {
 
 // Create a product
 router.post("/", authenticate, async (req, res) => {
-  const { name, description, price, image, category } = req.body;
+  const { name, description, price, image, category, brand } = req.body;
   const user = req.user;
 
   if (!user || user.role !== "SELLER") {
@@ -41,6 +41,7 @@ router.post("/", authenticate, async (req, res) => {
       price: Number(price),
       image,
       category,
+      brand,
       sellerId: user.userId,
     },
   });

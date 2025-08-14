@@ -64,3 +64,27 @@ export async function createProductForSeller(
     },
   });
 }
+
+export async function createPaidOrder(
+  buyerId: string,
+  productId: string,
+  price: number
+) {
+  const order = await prisma.order.create({
+    data: {
+      userId: buyerId,
+      status: "PAID",
+      total: price,
+      fullName: "Test",
+      address: "Street 1",
+      city: "City",
+      postalCode: "00000",
+      country: "FI",
+      phone: "000",
+    },
+  });
+  await prisma.orderItem.create({
+    data: { orderId: order.id, productId, quantity: 1, price },
+  });
+  return order;
+}
