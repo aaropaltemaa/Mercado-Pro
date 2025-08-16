@@ -34,6 +34,10 @@ router.post("/", authenticate, async (req, res) => {
     return res.status(403).json({ error: "Only sellers can create products." });
   }
 
+  if (!name || !category || !brand || !price) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
   const product = await prisma.product.create({
     data: {
       name,
@@ -55,6 +59,11 @@ router.get("/:id", async (req, res) => {
   const product = await prisma.product.findUnique({
     where: { id: productId },
   });
+
+  if (!product) {
+    return res.status(404).json({ error: "Product doesn't exist" });
+  }
+
   res.json(product);
 });
 
@@ -222,13 +231,19 @@ router.put("/:id", authenticate, async (req, res) => {
 
   const userId = req.user.userId;
 
-  if (!userId) return res.status(401).json({ error: "Unauthorized" });
-
-  const product = await prisma.product.findFirst({
-    where: { id: productId, sellerId: userId },
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
   });
 
-  if (!product) return res.status(404).json({ error: "Product not found" });
+  if (!product) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  if (product.sellerId !== userId) {
+    return res
+      .status(403)
+      .json({ error: "Not allowed to update this product" });
+  }
 
   const allowed = ["name", "description", "price", "image", "category"];
   const data = Object.fromEntries(
@@ -242,7 +257,7 @@ router.put("/:id", authenticate, async (req, res) => {
   }
 
   const updated = await prisma.product.update({
-    where: { id: productId, sellerId: userId },
+    where: { id: productId },
     data,
   });
 
@@ -252,24 +267,29 @@ router.put("/:id", authenticate, async (req, res) => {
 router.delete("/:id", authenticate, async (req, res) => {
   const productId = req.params.id;
 
-  if (!req.user || !req.user.userId) {
+  if (!req.user?.userId) {
     return res.status(401).json({ error: "Unauthorized" });
   }
-
   const userId = req.user.userId;
 
-  const productToDelete = await prisma.product.findFirst({
-    where: { id: productId, sellerId: userId },
-  });
+  // 1) Fetch by id only
+  const product = await prisma.product.findUnique({ where: { id: productId } });
 
-  if (!productToDelete) {
+  // 2) Not found
+  if (!product) {
     return res.status(404).json({ error: "Product not found" });
   }
 
-  await prisma.product.delete({
-    where: { id: productId },
-  });
+  // 3) Exists but not owner
+  if (product.sellerId !== userId) {
+    return res
+      .status(403)
+      .json({ error: "Not allowed to delete this product" });
+  }
+  // 4) Delete
+  await prisma.product.delete({ where: { id: productId } });
 
+  // 5) No content
   return res.status(204).send();
 });
 
