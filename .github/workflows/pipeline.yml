@@ -25,7 +25,7 @@ jobs:
 
       - name: Migrate test database
         working-directory: server
-        run: dotenv -e .env.test -- pnpm prisma migrate deploy
+        run: pnpm dotenv -e .env.test -- pnpm prisma migrate deploy
 
       - name: Run backend tests
         working-directory: server
