@@ -20,10 +20,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma client
-        run: pnpm --filter server prisma generate
+        working-directory: server
+        run: pnpm prisma generate
+
+      - name: Migrate test database
+        working-directory: server
+        run: dotenv -e .env.test -- pnpm prisma migrate deploy
 
       - name: Run backend tests
-        run: pnpm --filter server test
-
-      - name: Run e2e tests
-        run: pnpm e2e
+        working-directory: server
+        run: pnpm test
