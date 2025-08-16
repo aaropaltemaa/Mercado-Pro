@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "e2e:db": "dotenv -e .env.e2e -- prisma migrate deploy && dotenv -e .env.e2e -- prisma db seed",
+    "start:e2e": "dotenv -e .env.e2e -- tsx src/server.ts",
     "test:db": "dotenv -e .env.test -- prisma migrate deploy",
     "test": "dotenv -e .env.test -- vitest run",
     "test:watch": "dotenv -e .env.test -- vitest",
     "dev": "nodemon --exec tsx src/server.ts",
-    "start": "tsc && node dist/server.js",
+    "start": "node dist/server.js",
     "build": "tsc"
   },
   "keywords": [],
