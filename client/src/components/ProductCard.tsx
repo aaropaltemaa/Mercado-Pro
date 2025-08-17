@@ -51,6 +51,7 @@ const ProductCard = () => {
       {filteredProducts.map((product, index) => (
         <motion.div
           key={product.id}
+          data-testid="product-card"
           className="flex flex-col border p-5 min-h-[350px] rounded-xl shadow-md w-72 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl gap-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

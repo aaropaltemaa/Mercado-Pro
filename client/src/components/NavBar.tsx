@@ -28,6 +28,8 @@ const NavBar: React.FC = () => {
           {user?.role === "BUYER" && (
             <Link
               to="/cart"
+              aria-label="Cart"
+              data-testid="cart-link"
               className=" text-white p-2 rounded-lg hover:opacity-60 transition shadow flex items-center justify-center"
             >
               <div className="relative">

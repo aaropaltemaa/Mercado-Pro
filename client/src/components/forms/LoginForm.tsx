@@ -32,7 +32,7 @@ const LoginForm = () => {
     try {
       const { token, user } = await authService.login(data);
       login(user, token);
-      toast.success(`Logged in succesfully!`);
+      toast.success(`Logged in successfully!`);
       reset();
       navigate("/");
     } catch (error) {
@@ -50,6 +50,7 @@ const LoginForm = () => {
           type="text"
           placeholder="Email *"
           className={inputClass}
+          data-testid="email"
         />
         {errors.email && (
           <div className="text-red-500 text-sm">{errors.email.message}</div>
@@ -60,6 +61,7 @@ const LoginForm = () => {
           type="password"
           placeholder="Password *"
           className={inputClass}
+          data-testid="password"
         />
         {errors.password && (
           <div className="text-red-500 text-sm">{errors.password.message}</div>
