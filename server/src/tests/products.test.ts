@@ -134,6 +134,8 @@ describe("Products", () => {
       price: 299,
     });
 
+    console.log("Created product:", product);
+
     const res = await request
       .put(`/products/${product.id}`)
       .set("Authorization", `Bearer ${token}`)
