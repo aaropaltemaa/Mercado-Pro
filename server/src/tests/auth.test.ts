@@ -10,8 +10,6 @@ describe("Auth", () => {
       role: "BUYER",
     });
 
-    console.log("REGISTER RESPONSE:", res.body, res.status);
-
     expect(res.status).toBe(201);
     expect(res.body).toMatchObject({
       message: "User registered successfully.",
