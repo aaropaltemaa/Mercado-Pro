@@ -24,6 +24,7 @@ async function clearDb() {
 
 beforeAll(async () => {
   await prisma.$connect();
+  await prisma.$executeRawUnsafe("PRAGMA foreign_keys = ON");
 });
 
 beforeEach(async () => {

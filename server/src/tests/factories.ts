@@ -56,7 +56,7 @@ export async function createProductForSeller(
       image: data?.image ?? "https://placehold.co/400",
       category: data?.category ?? "Other",
       brand: data?.brand ?? "Other",
-      sellerId,
+      seller: { connect: { id: sellerId } },
     },
   });
 }
