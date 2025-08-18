@@ -9,9 +9,8 @@ const ProductCard = () => {
   const { products, search, sortOption, selectedBrands, priceRange } =
     useProductStore();
 
-  const safeProducts = Array.isArray(products) ? products : [];
-
   const filteredProducts = useMemo(() => {
+    const safeProducts = Array.isArray(products) ? products : [];
     const q = search.trim().toLowerCase();
 
     let list = safeProducts
@@ -42,7 +41,7 @@ const ProductCard = () => {
     });
 
     return list;
-  }, [safeProducts, search, sortOption, selectedBrands, priceRange]);
+  }, [products, search, sortOption, selectedBrands, priceRange]);
 
   if (filteredProducts.length === 0) {
     return <div className="text-lg">No products found.</div>;
