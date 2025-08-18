@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { ShippingData } from "../../../types";
 
-const url = "http://localhost:3000/orders";
+const url = `${import.meta.env.VITE_API_URL}/orders`;
 
 const getAll = (token: string) => {
   const req = axios.get(url, {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3000/cart";
+const url = `${import.meta.env.VITE_API_URL}/cart`;
 
 const getCart = (token: string) => {
   const req = axios.get(url, {
