@@ -40,7 +40,10 @@ export const useProductStore = create<ProductState>((set) => ({
 export const selectFilteredCount = (s: ProductState) => {
   const q = s.search.trim().toLowerCase();
 
-  const list = s.products
+  // Defensive: fallback to [] if not an array
+  const products = Array.isArray(s.products) ? s.products : [];
+
+  const list = products
     .filter((p) => (q ? p.name.toLowerCase().includes(q) : true))
     .filter((p) =>
       s.selectedBrands.length > 0 ? s.selectedBrands.includes(p.brand) : true
