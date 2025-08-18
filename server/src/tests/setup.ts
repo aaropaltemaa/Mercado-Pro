@@ -2,7 +2,6 @@ import { beforeAll, afterAll, beforeEach, expect } from "vitest";
 import { PrismaClient } from "@prisma/client";
 import supertest from "supertest";
 import app from "../app";
-// safety: never hit dev DB by mistake
 if (!process.env.DATABASE_URL?.includes("test.db")) {
   // Fail fast if tests aren't pointed at test DB
   throw new Error("DATABASE_URL must point to test.db when running tests");
