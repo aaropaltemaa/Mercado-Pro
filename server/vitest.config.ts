@@ -7,5 +7,8 @@ export default defineConfig({
     setupFiles: ["./src/tests/setup.ts"],
     testTimeout: 30000,
     hookTimeout: 30000,
+    // run all suites in a single worker, in order
+    poolOptions: { threads: { singleThread: true } },
+    sequence: { concurrent: false },
   },
 });
