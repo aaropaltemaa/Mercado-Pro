@@ -7,7 +7,7 @@ It allows multiple sellers to list products, while buyers can browse, shop, and 
 
 ## 🌐 Live Demo
 
-🔗 **[View the Live App]https://mercado-pro-1.onrender.com**
+🔗 **[View the Live App](https://mercado-pro-1.onrender.com)**
 
 **Demo Accounts:**
 
