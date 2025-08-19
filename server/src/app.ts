@@ -7,8 +7,20 @@ import cartRoutes from "./routes/cart";
 import orderRoutes from "./routes/orders";
 
 const app = express();
+
 app.use(express.static("dist"));
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:5173", // local dev
+  "https://mercado-pro-1.onrender.com", // frontend on Render
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use("/auth", authRoutes);
