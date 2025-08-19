@@ -118,6 +118,55 @@ Visit: http://localhost:5173
 
 ---
 
+## 🧪 Tests
+
+This project includes both **backend tests** (Vitest + Supertest + Prisma)  
+and **end-to-end tests** (Playwright) for critical user flows.
+
+---
+
+### 🧩 Backend Tests
+
+- **Stack:** Vitest, Supertest, Prisma
+- **Runs against:** Local SQLite test DB
+
+**To run:**
+
+```bash
+cd server
+pnpm test
+```
+
+**Covers:**
+
+- Authentication (register, login, JWT)
+- Product CRUD operations
+- Role-based permissions
+
+---
+
+### 🌐 End-to-End Tests
+
+- **Stack:** Playwright
+- **Simulates:** Real user flows in the browser
+
+**To run:**
+
+```bash
+pnpm e2e        # Run headless
+pnpm e2e --ui   # Debug in Playwright UI
+```
+
+**Covers:**
+
+- Visiting the home page
+- Login/logout
+- Viewing product details
+- Adding to cart
+- Checkout flow
+
+---
+
 ## 🧪 API Examples
 
 **Get all users**
