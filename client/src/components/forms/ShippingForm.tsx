@@ -37,6 +37,7 @@ const ShippingForm = () => {
     <div>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <input
+          data-testid="fullname"
           {...register("fullName")}
           type="text"
           placeholder="Full Name"
@@ -46,6 +47,7 @@ const ShippingForm = () => {
           <div className="text-red-500 text-sm">{errors.fullName.message}</div>
         )}
         <input
+          data-testid="address"
           {...register("address")}
           type="text"
           placeholder="Address"
@@ -55,6 +57,7 @@ const ShippingForm = () => {
           <div className="text-red-500 text-sm">{errors.address.message}</div>
         )}
         <input
+          data-testid="city"
           {...register("city")}
           type="text"
           placeholder="City"
@@ -64,6 +67,7 @@ const ShippingForm = () => {
           <div className="text-red-500 text-sm">{errors.city.message}</div>
         )}
         <input
+          data-testid="postalcode"
           {...register("postalCode")}
           type="text"
           placeholder="Postal Code"
@@ -75,6 +79,7 @@ const ShippingForm = () => {
           </div>
         )}
         <input
+          data-testid="country"
           {...register("country")}
           type="text"
           placeholder="Country"
@@ -84,6 +89,7 @@ const ShippingForm = () => {
           <div className="text-red-500 text-sm">{errors.country.message}</div>
         )}
         <input
+          data-testid="phone"
           {...register("phone")}
           type="text"
           placeholder="Phone Number"
