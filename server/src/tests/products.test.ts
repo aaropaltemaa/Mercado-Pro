@@ -5,6 +5,7 @@ import {
   createProductForSeller,
   createBuyerAndToken,
 } from "./factories";
+import { prisma } from "./setup";
 
 describe("Products", () => {
   it("GET /products returns an empty list initially", async () => {
@@ -111,6 +112,9 @@ describe("Products", () => {
       brand: "Logitech",
       price: 129,
     });
+
+    const exists = await prisma.product.findUnique({ where: { id: p.id } });
+    expect(exists).not.toBeNull();
 
     const res = await request.get(`/products/${p.id}`);
 
